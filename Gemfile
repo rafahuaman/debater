@@ -1,18 +1,23 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
 # Use postgresql as the database for Active Record
+#used on deveolpment, test, and production
 gem 'pg'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
+  gem 'guard-rspec', '2.5.0'
 end
 
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara'
+  
+  gem 'libnotify', '0.8.0'
 end
 
 # Use SCSS for stylesheets
