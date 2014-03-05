@@ -2,6 +2,7 @@ Debater::Application.routes.draw do
   
   
   resources :users
+  match '/signup', to: 'users#new', via: 'get'
 
   #get "static_pages/home"
   #get "static_pages/about"
@@ -13,6 +14,8 @@ Debater::Application.routes.draw do
 
   # Example of regular route:
   get 'about' => 'static_pages#about'
+  
+  
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
