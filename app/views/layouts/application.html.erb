@@ -12,10 +12,14 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
-    <div>
-    <%= yield %>
-    <%= javascript_include_tag "application" %>
+    <div class="main">
+      <div class = "wrapper">
+        <%= render 'layouts/header' %>
+        <div class="row">
+          <%= yield %>
+          <%= javascript_include_tag "application" %>
+        </div>
+      </div>
     </div>
   </body>
 </html>

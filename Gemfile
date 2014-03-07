@@ -8,6 +8,7 @@ gem 'rails', '4.0.0'
 #used on deveolpment, test, and production
 gem 'pg'
 
+gem 'simple_form'
 gem 'foundation-rails'
 
 group :development, :test do
