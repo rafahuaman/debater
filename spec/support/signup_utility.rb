@@ -1,8 +1,8 @@
 module SignUpUtility
-  def valid_signup_form_completion
-    fill_in "Name", with: "Example"
-    fill_in 'Password', with: "foobar", match: :prefer_exact
-    fill_in 'Password confirmation', with: "foobar", match: :prefer_exact
+  def valid_signup_form_completion(info_hash)
+    fill_in "Name", with: info_hash[:name]
+    fill_in 'Password', with: info_hash[:password], match: :prefer_exact
+    fill_in 'Password confirmation', with: info_hash[:password], match: :prefer_exact
   end
   
   def invalid_signup_password_missmatch

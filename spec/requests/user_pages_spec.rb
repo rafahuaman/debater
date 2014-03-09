@@ -24,10 +24,19 @@ describe "User pages" do
     end
     
     describe "with valid information" do
-      before { valid_signup_form_completion }
+      let(:info_hash) { { name: "Example", password: "foobar"} }
+      before { valid_signup_form_completion(info_hash) }
       
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
+      end
+      
+      describe "after saving the user" do
+        before { click_button submit }
+        
+        it { should have_link('Profile', href: user_path(User.last)) }
+        it { should have_link('Sign out', href: signout_path) }
+        it { should_not have_link('Sign in', href: signin_path)}        
       end
     end
     

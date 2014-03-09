@@ -1,0 +1,8 @@
+<!-- Using simple_form_for instead of form_tag in order to mantain   -->
+<!-- consistency accross forms in the project.    -->
+<%= simple_form_for(:session, url: sessions_path) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :password %>
+  <%= f.button :submit, "Sign in" %>
+<% end %>
