@@ -1,6 +1,4 @@
-<h1>Editing user</h1>
+<% provide(:title, 'Edit user') %>
+<h1>Update your profile</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= render 'form', submit_caption: "Save changes" %>
