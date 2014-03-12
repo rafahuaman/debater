@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @user = User.find(params[:id])
   end
 
   # POST /users
@@ -30,7 +31,7 @@ class UsersController < ApplicationController
       if @user.save
         format.html do
           sign_in @user
-          redirect_to root_path, success: 'User was successfully created.' 
+          redirect_to root_path, notice: 'User was successfully created.' 
         end
         format.json { render action: 'show', status: :created, location: @user }
       else
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }

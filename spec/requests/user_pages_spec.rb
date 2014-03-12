@@ -44,6 +44,7 @@ describe "User pages" do
   
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
+    let(:submit) { "Save changes" }
     before { visit edit_user_path(user) }
 
     describe "page" do
@@ -52,9 +53,22 @@ describe "User pages" do
     end
 
     describe "with invalid information" do
-      before { click_button "Save changes" }
+      before { click_button submit }
 
       it { should have_selector('div.alert-box.alert') }
     end
+    
+    describe "with valid information" do
+      let(:info_hash) { { name: "New Name", password: "New Password"} }
+      before do 
+        valid_signup_form_completion(info_hash) 
+        click_button submit
+      end
+      
+      it { should have_content("Name: #{info_hash[:name]}") }
+      it { should have_selector('div.alert-box.success') }
+    end
+  
+    
   end
 end
