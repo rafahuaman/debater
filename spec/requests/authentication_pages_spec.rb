@@ -30,11 +30,7 @@ describe "Authentication" do
     
     describe "with valid username and password" do
       let(:user) { FactoryGirl.create(:user) }
-      before do 
-        fill_in "Name", with: user.name
-        fill_in 'Password', with: user.password
-        click_button submit 
-      end
+      before { sign_in user }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path)}
@@ -45,7 +41,38 @@ describe "Authentication" do
         it { should have_link('Sign in') }
       end
     end
+  end
+  
+  describe "Authorization" do
+    let(:user) { FactoryGirl.create(:user) }
     
+    describe "visiting the edit page" do
+      before { visit edit_user_path(user) }
+    
+      it { should have_title("Sign in") }
+    end
+    
+    describe "submitting to the update action" do
+      before { patch user_path(user) }
+      specify { expect(response).to redirect_to(signin_path) }
+    end
+    
+    describe "as wrong user" do
+      let(:wrong_user) { FactoryGirl.create(:user, name: "Matt") }
+      before { sign_in user, no_capybara: true}
+      
+      describe "submitting a GET request to the Users#edit action" do
+        before { get edit_user_path(wrong_user) }
+        specify { expect(response.body).not_to match('Edit user') }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+      
+       describe "submitting a PATCH request to the Users#update action" do
+        before { patch user_path(wrong_user) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+      
+    end
   end
   
 end

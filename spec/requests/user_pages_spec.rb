@@ -45,7 +45,10 @@ describe "User pages" do
   describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     let(:submit) { "Save changes" }
-    before { visit edit_user_path(user) }
+    before do
+      sign_in user
+      visit edit_user_path(user)
+    end
 
     describe "page" do
       it { should have_content("Update your profile") }
@@ -67,6 +70,7 @@ describe "User pages" do
       
       it { should have_content("Name: #{info_hash[:name]}") }
       it { should have_selector('div.alert-box.success') }
+      specify { expect(user.reload.name).to  eq info_hash[:name] }
     end
   
     
