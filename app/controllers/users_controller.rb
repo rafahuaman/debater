@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :check_signed_in_user, only: [:edit, :update]
-  before_action :check_correct_user, only: [:edit, :update]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :check_signed_in_user, only: [:edit, :update, :destroy]
+  before_action :check_correct_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :delete]
   
 
   # GET /users
@@ -61,11 +61,18 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
+    if @user.authenticate(params[:user][:password])
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: "User was succesfully deleted." }
+        format.json { head :no_content }
+      end
+    else
+      render 'delete', alert: "Invalid password"
     end
+  end
+  
+  def delete
   end
 
   private
@@ -80,6 +87,7 @@ class UsersController < ApplicationController
     end
   
     def check_signed_in_user
+      store_location
       redirect_to signin_url, alert: "Please sign in." unless signed_in?
     end
   

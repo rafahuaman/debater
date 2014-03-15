@@ -1,0 +1,9 @@
+<% provide(:title, 'Delete user') %>
+<h1>Delete my account</h1>
+
+<div class="form">
+  <%= simple_form_for(@user, url: user_url(@user), method: :delete) do |f| %>
+  <%= f.input :password %>
+    <%= f.button :submit, "Delete",  class: "button alert", method: :delete, data: { confirm: "You sure?" } %>
+  <% end %>
+</div>

@@ -2,3 +2,4 @@
 <h1>Update your profile</h1>
 
 <%= render 'form', submit_caption: "Save changes" %>
+<%= button_to 'Delete account', delete_user_path(@user), class: "button secondary tiny", method: :get %> 

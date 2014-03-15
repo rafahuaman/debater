@@ -46,15 +46,32 @@ describe "Authentication" do
   describe "Authorization" do
     let(:user) { FactoryGirl.create(:user) }
     
-    describe "visiting the edit page" do
-      before { visit edit_user_path(user) }
-    
-      it { should have_title("Sign in") }
-    end
-    
-    describe "submitting to the update action" do
-      before { patch user_path(user) }
-      specify { expect(response).to redirect_to(signin_path) }
+    describe "As non-signed-in user" do
+      
+      describe "visiting the edit page" do
+        before { visit edit_user_path(user) }
+      
+        it { should have_title("Sign in") }
+        
+        describe "after signing-in" do
+          before do 
+            fill_in "Name",    with: user.name
+            fill_in "Password", with: user.password
+            click_button "Sign in"
+          end
+          it { should have_title("Edit user") }
+        end
+      end
+      
+      describe "submitting to the update action" do
+        before { patch user_path(user) }
+        specify { expect(response).to redirect_to(signin_path) }
+      end
+      
+      describe "submitting to the destroy action" do
+        before { delete user_path(user) }
+        specify { expect(response).to redirect_to(signin_path) }
+      end
     end
     
     describe "as wrong user" do
@@ -67,8 +84,13 @@ describe "Authentication" do
         specify { expect(response).to redirect_to(root_url) }
       end
       
-       describe "submitting a PATCH request to the Users#update action" do
+      describe "submitting a PATCH request to the Users#update action" do
         before { patch user_path(wrong_user) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+      
+      describe "submitting a DELETE request to the Users#delete action" do
+        before { delete user_path(wrong_user) }
         specify { expect(response).to redirect_to(root_url) }
       end
       

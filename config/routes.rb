@@ -18,6 +18,7 @@ Debater::Application.routes.draw do
   match '/signup', to: 'users#new', via: 'get'
   match '/signin', to: 'sessions#new', via: 'get'
   match '/signout', to: 'sessions#destroy', via: 'delete'
+  match '/delete/:id', to: 'users#delete', via: 'get', as: :delete_user
   #get 'about' => 'static_pages#about'
   
   

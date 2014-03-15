@@ -71,8 +71,38 @@ describe "User pages" do
       it { should have_content("Name: #{info_hash[:name]}") }
       it { should have_selector('div.alert-box.success') }
       specify { expect(user.reload.name).to  eq info_hash[:name] }
-    end
-  
-    
+    end    
   end
+
+  describe "destroy page" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:submit) { "Save changes" }
+      before do
+        sign_in user
+        visit edit_user_path(user)
+        click_button "Delete account"
+      end
+      
+      it { should have_content("Delete my account") }
+      it { should have_button("Delete") }
+     
+    describe "with valid information" do
+      before { fill_in "Password", with: user.password }
+      it "should delete the user" do
+        expect { click_button "Delete" }.to change(User, :count).by(-1)   
+        expect(User.find_by(name: user.name )).to be_false
+      end
+    end
+    
+    describe "with invalid information" do
+      before { fill_in "Password", with: "invalid" }
+  
+      it "should not delete the user" do
+        expect { click_button "Delete" }.not_to change(User, :count).by(-1)
+        
+      end
+    end
+     
+  end
+
 end
