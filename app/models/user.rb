@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :debates, dependent: :destroy
   before_create :create_remember_token 
   validates :name, presence: true, uniqueness: true 
   validates :password, length: { minimum: 6 }

@@ -15,6 +15,7 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
   it { should respond_to(:remember_token) }
+  it { should respond_to(:debates) }
   
   
   it { should be_valid }
@@ -71,6 +72,30 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+  
+  describe "debate associations" do 
+    before { @user.save }
+    let!(:older_debate) do
+      FactoryGirl.create(:debate, user: @user, created_at: 1.day.ago)
+    end
+    let!(:newer_debate) do
+      FactoryGirl.create(:debate, user: @user, created_at: 1.hour.ago)
+    end
+    
+     it "should have the right microposts in the right order" do
+       expect(@user.debates.to_a).to eq [newer_debate, older_debate]
+     end
+    
+    it "should destroy associated debates" do
+      debates = @user.debates.to_a
+      @user.destroy
+      expect(debates).not_to be_empty
+      debates.each do |debate|
+        expect(Debate.where(id: debate.id)).to be_empty
+      end
+    end
+    
   end
 
 end
