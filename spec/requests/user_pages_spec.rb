@@ -102,7 +102,25 @@ describe "User pages" do
         
       end
     end
-     
+  end
+  
+  describe "profile page" do
+    let(:user) { FactoryGirl.create(:user) }
+    let!(:d1) { FactoryGirl.create(:debate, content:"First debate", user: user) }
+    let!(:d2) { FactoryGirl.create(:debate, content:"Second debate", user: user) }
+    
+    before do 
+      sign_in user
+      visit user_path(user) 
+    end
+    
+    it { should have_content(user.name) }
+    it { should have_title(user.name) }
+    
+    describe "debates" do
+      it { should have_content(d1.title) }
+      it { should have_content(d2.title) }
+    end
   end
 
 end

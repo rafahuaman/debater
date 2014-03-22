@@ -1,3 +1,4 @@
+<% provide(:title, @user.name) %>
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
@@ -5,3 +6,11 @@
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
+<div>
+  <% if @user.debates.any? %>
+    <h3>Debates</h3>
+    <ul>
+      <%= render @debates %>
+    </ul>
+  <% end %>
+</div>

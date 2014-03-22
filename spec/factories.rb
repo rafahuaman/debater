@@ -8,8 +8,8 @@ FactoryGirl.define do
   factory :debate do
     title "Lorem ipsum"
     content "Lorem ipsum"
-    affirmative "Lorem ipsum"
-    negative "Lorem ipsum"
+    affirmative "Affirmative"
+    negative "Negative"
     user
   end
 end
