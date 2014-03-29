@@ -1,0 +1,29 @@
+<h1>Listing chambers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chambers.each do |chamber| %>
+      <tr>
+        <td><%= chamber.name %></td>
+        <td><%= chamber.description %></td>
+        <td><%= link_to 'Show', chamber %></td>
+        <td><%= link_to 'Edit', edit_chamber_path(chamber) %></td>
+        <td><%= link_to 'Destroy', chamber, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Chamber', new_chamber_path %>
