@@ -87,10 +87,10 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation)
     end
   
-    def check_signed_in_user
-      store_location
-      redirect_to signin_url, alert: "Please sign in." unless signed_in?
-    end
+#    def check_signed_in_user
+ #     store_location
+  #    redirect_to signin_url, alert: "Please sign in." unless signed_in?
+   # end
   
     def check_correct_user
       @user = User.find(params[:id])

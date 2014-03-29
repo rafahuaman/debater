@@ -1,9 +1,12 @@
 Debater::Application.routes.draw do
   
+  
+
   match '/signup', to: 'users#new', via: 'get'
   
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :debates
 
   #get "static_pages/home"
   #get "static_pages/about"

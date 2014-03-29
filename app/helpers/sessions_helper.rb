@@ -22,6 +22,11 @@ module SessionsHelper
   def signed_in?
     !current_user.nil?
   end
+  
+  def check_signed_in_user
+    store_location
+    redirect_to signin_url, alert: "Please sign in." unless signed_in?
+  end
 
   #Generate new remember token in the db in case the cookie has been stolen
   def sign_out
