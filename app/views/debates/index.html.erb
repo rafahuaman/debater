@@ -1,0 +1,27 @@
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @debates.each do |debate| %>
+      <tr>
+        <td><%= link_to "#{debate.title}", debate_url(debate) %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Submit a New Debate', new_debate_path %>
