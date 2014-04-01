@@ -1,0 +1,26 @@
+<div class = "debateHeader">
+  <div class="row" id="debateTitle">
+    <div class="large-12 columns">
+      <h3>
+        <%= @debate.title %>
+      </h3>    
+    </div>
+  </div>
+  <div class="row" id="debateContent">
+    <div class="large-12 columns">
+        <%= @debate.content %>
+    </div>
+  </div>
+  <div class="row" id="debateAffirmative">
+      <div class="large-6 columns">
+        <h5>
+          <%= @debate.affirmative %>
+        </h5>
+    </div>
+    <div class="large-6 columns" id="debateNegative">
+      <h5>
+        <%= @debate.negative %>
+      </h5>
+    </div>
+  </div>
+</div>

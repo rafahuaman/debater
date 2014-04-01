@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe Debate do
   let(:user) { FactoryGirl.create(:user)  }
+  let(:chamber) { FactoryGirl.create(:chamber)  }
   
   before do
-    @debate = user.debates.build(title: "Lorem Ipsum", content:"Lorem Ipsum", affirmative: "Lorem Ipsum", negative: "Lorem Ipsum")
+    @debate = user.debates.build(title: "Lorem Ipsum", content:"Lorem Ipsum", affirmative: "Lorem Ipsum", negative: "Lorem Ipsum", chamber: chamber)
   end
   
   subject { @debate }
