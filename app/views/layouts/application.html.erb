@@ -23,9 +23,14 @@
             </div>
           </div>
         <% end %>
-        <%= yield %> 
-        <%= debug(params) if Rails.env.development? %>
-        <%= javascript_include_tag "application" %>
+        <div class="large-9 medium-8 columns">
+          <%= yield %> 
+          <%= debug(params) if Rails.env.development? %>
+          <%= javascript_include_tag "application" %>
+        </div>
+        <div class="large-3 medium-4 columns">
+          <%= render 'layouts/sidebar' %>
+        </div>
       </div>
     </div>
   </body>
