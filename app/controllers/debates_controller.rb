@@ -6,7 +6,14 @@ class DebatesController < ApplicationController
     @debates = Debate.all
   end
   
+  def new
+    @debate = Debate.new
+  end
+  
   def create
+    chamber_id = Chamber.find_by(name: params[:chamber])
+    @debate = Debate.new(debate_params)
+    @debate.chamber_id = chamber_id
   end
   
   def destroy
@@ -28,5 +35,10 @@ class DebatesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_debate
       @debate = Debate.find(params[:id])
+    end
+  
+     # Never trust parameters from the scary internet, only allow the white list through.
+    def debate_params
+      params.require(:debate).permit(:title, :content, :affirmative, :negative, :chamber_id)
     end
 end

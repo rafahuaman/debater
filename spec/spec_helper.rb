@@ -44,6 +44,7 @@ Spork.prefork do
     config.order = "random"
     config.include Capybara::DSL
     config.include SignUpUtility
+    config.include DebateUtility
   end
 end
 
