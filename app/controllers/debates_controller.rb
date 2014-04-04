@@ -14,6 +14,13 @@ class DebatesController < ApplicationController
     chamber_id = Chamber.find_by(name: params[:chamber])
     @debate = Debate.new(debate_params)
     @debate.chamber_id = chamber_id
+    
+    if @debate.save
+      redirect_to debate_path(@debate), notice: 'Debate was successfully created.' 
+    else
+      render action: 'new'
+    end
+    
   end
   
   def destroy

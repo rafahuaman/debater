@@ -24,8 +24,8 @@ describe "User pages" do
     end
     
     describe "with valid information" do
-      let(:info_hash) { { name: "Example", password: "foobar"} }
-      before { valid_signup_form_completion(info_hash) }
+      let(:user_signup_information) { { name: "Example", password: "foobar"} }
+      before { valid_signup_form_completion(user_signup_information) }
       
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
@@ -62,15 +62,15 @@ describe "User pages" do
     end
     
     describe "with valid information" do
-      let(:info_hash) { { name: "New Name", password: "New Password"} }
+      let(:user_signup_information) { { name: "New Name", password: "New Password"} }
       before do 
-        valid_signup_form_completion(info_hash) 
+        valid_signup_form_completion(user_signup_information) 
         click_button submit
       end
       
-      it { should have_content("Name: #{info_hash[:name]}") }
+      it { should have_content("Name: #{user_signup_information[:name]}") }
       it { should have_selector('div.alert-box.success') }
-      specify { expect(user.reload.name).to  eq info_hash[:name] }
+      specify { expect(user.reload.name).to  eq user_signup_information[:name] }
     end    
   end
 
