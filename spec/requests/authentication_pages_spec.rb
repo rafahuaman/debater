@@ -48,40 +48,59 @@ describe "Authentication" do
     
     describe "As non-signed-in user" do
       
-      describe "visiting the edit page" do
-        before { visit edit_user_path(user) }
+      describe "User" do
       
-        it { should have_title("Sign in") }
-        
-        describe "after signing-in" do
-          before do 
-            fill_in "Name",    with: user.name
-            fill_in "Password", with: user.password
-            click_button "Sign in"
+        describe "Pages" do
+          describe "when visiting the edit page" do
+            before { visit edit_user_path(user) }
+          
+            it { should have_title("Sign in") }
+            
+            describe "after signing-in should redirect to previous page" do
+              before do 
+                fill_in "Name",    with: user.name
+                fill_in "Password", with: user.password
+                click_button "Sign in"
+              end
+              it { should have_title("Edit user") }
+            end
           end
-          it { should have_title("Edit user") }
-        end
-      end
-      
-      describe "submitting to the update action" do
-        before { patch user_path(user) }
-        specify { expect(response).to redirect_to(signin_path) }
-      end
-      
-      describe "submitting to the destroy action" do
-        before { delete user_path(user) }
-        specify { expect(response).to redirect_to(signin_path) }
-      end
-      
-      describe "in the Debates controller" do
-        describe "submitting to the create action" do
-          before { post debates_path }
-          specify { expect(response).to redirect_to(signin_path) }
         end
         
-        describe "submitting to the destroy action" do
-          before { delete debate_path(FactoryGirl.create(:debate)) }
-          specify { expect(response).to redirect_to(signin_path) }
+        describe "Controller" do
+        
+          describe "submitting to the update action" do
+            before { patch user_path(user) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+          
+          describe "submitting to the destroy action" do
+            before { delete user_path(user) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+        end
+      end
+      
+      describe "Debates" do
+        describe "Pages" do
+          
+          describe "when visiting the create page" do
+            before { visit new_debate_path }
+            
+            it { should redirect_to_sign_in_page }
+          end
+        end
+        
+        describe "Controller" do
+          describe "submitting to the create action" do
+            before { post debates_path }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+          
+          describe "submitting to the destroy action" do
+            before { delete debate_path(FactoryGirl.create(:debate)) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
         end
       end
     end

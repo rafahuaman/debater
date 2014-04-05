@@ -1,5 +1,5 @@
 class DebatesController < ApplicationController
-  before_action :check_signed_in_user, only: [:create, :destroy]
+  before_action :check_signed_in_user, only: [:new, :create, :destroy]
   before_action :set_debate, only: [:show, :edit, :update, :destroy, :delete]
   
   def index
@@ -11,10 +11,7 @@ class DebatesController < ApplicationController
   end
   
   def create
-    chamber_id = Chamber.find_by(name: params[:chamber])
-    @debate = Debate.new(debate_params)
-    @debate.chamber_id = chamber_id
-    
+    @debate = current_user.debates.build(debate_params)
     if @debate.save
       redirect_to debate_path(@debate), notice: 'Debate was successfully created.' 
     else

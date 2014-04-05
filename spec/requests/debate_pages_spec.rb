@@ -21,14 +21,7 @@ describe "Debate pages" do
     
     let(:submit)  { "Post debate" }
     
-    it { should have_content('Submit a debate')  }
-    it { should have_title('Submit a debate')  }
-    
-    it { should have_content('Title')  }
-    it { should have_content('Content')  }
-    it { should have_content('Affirmative')  }
-    it { should have_content('Negative')  }
-    it { should have_content('Chamber')  }
+    it { should have_new_debate_page_appearance  }
     
     describe "with invalid information" do
       it "should not create a debate" do
@@ -50,36 +43,34 @@ describe "Debate pages" do
           chamber: chamber[:name] }  
       end
       
-      before do
-        fill_in "Title", with: valid_new_debate_form_data[:title]
-        fill_in 'Content', with: valid_new_debate_form_data[:content]
-        fill_in 'Affirmative', with: valid_new_debate_form_data[:affirmative]
-        fill_in 'Negative', with: valid_new_debate_form_data[:negative]
-        select valid_new_debate_form_data[:chamber], :from => 'Chamber'
-      end
+      before { valid_new_debate_form_completion(valid_new_debate_form_data) }
       
       it "should create a debate" do
          expect { click_button submit }.to change(Debate, :count).by(1)
       end
       
-      it "should redirect after saving the user" do
-        expect { click_button submit }.to redirect_to(root_path)
+      describe "should redirect to debate show page after saving the debate" do
+        before { click_button submit } 
+        it { should have_debate_show_page_appearance(valid_new_debate_form_data) }
       end
       
+      describe "should show success message after saving the debate" do
+        before { click_button submit }
+        it { should have_debate_created_successfully_message }
+      end
     end
-    
 
   end
   
   describe "show" do
-        before { visit debate_path(debate) }
+    before { visit debate_path(debate) }
     
-    it { should have_content(debate.title) }
-    it { should have_content(debate.content) }
-    it { should have_content(debate.affirmative) }
-    it { should have_content(debate.negative) }
+    it { should have_debate_show_page_appearance(debate) }
+    
     
   end
   
   
 end
+
+

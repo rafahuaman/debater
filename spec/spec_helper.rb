@@ -45,6 +45,7 @@ Spork.prefork do
     config.include Capybara::DSL
     config.include SignUpUtility
     config.include DebateUtility
+    config.include AuthorizationUtility
   end
 end
 

@@ -25,5 +25,4 @@ module SignUpUtility
       expect(page).to have_content('is too short (minimum is 6 characters)')
 	  end
 	end
-  
 end

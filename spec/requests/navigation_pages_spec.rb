@@ -12,4 +12,11 @@ describe "Navigation Requests Spec" do
       should have_link('Submit a new debate')
     end
   end
+  
+  describe "Side bar should be available" do
+    it "should show the sidebar on all pages" do
+      visit root_path
+      should have_link('Submit a new debate', new_debate_path)
+    end
+  end
 end
