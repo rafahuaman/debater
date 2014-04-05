@@ -7,9 +7,7 @@ describe "Authentication" do
   describe "sign in page" do
     before { visit signin_path }
     
-    it { should have_content('Sign in')  }
-    it { should have_title('Sign in')  }
-    it { should have_link('Sign up!', href: signup_path)  }
+    it { should have_sign_in_page_appearance }
   end
   
   describe "sign in" do
@@ -71,12 +69,12 @@ describe "Authentication" do
         
           describe "submitting to the update action" do
             before { patch user_path(user) }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
           
           describe "submitting to the destroy action" do
             before { delete user_path(user) }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
         end
       end
@@ -88,7 +86,7 @@ describe "Authentication" do
           describe "when visiting the create page" do
             before { visit new_debate_path }
             
-            it { should redirect_to_sign_in_page }
+            it { should have_sign_in_page_appearance }
           end
         end
         
@@ -97,22 +95,22 @@ describe "Authentication" do
           
           describe "submitting a POST request to the create action" do
             before { post debates_path }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
           
           describe "submitting a GET request to the edit action" do
             before { get edit_debate_path(debate) }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
           
           describe "submitting a PATCH request to the update action" do
             before { patch debate_path(debate) }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
           
           describe "submitting a DELETE to the destroy action" do
             before { delete debate_path(debate) }
-            specify { expect(response).to redirect_to(signin_path) }
+            it { should respond_by_redirecting_to_sign_in_page }
           end
         end
       end
@@ -126,17 +124,17 @@ describe "Authentication" do
         describe "submitting a GET request to the #edit action" do
           before { get edit_user_path(wrong_user) }
           specify { expect(response.body).not_to match('Edit user') }
-          specify { expect(response).to redirect_to(root_url) }
+          it { should respond_by_redirecting_to_root_page }
         end
         
         describe "submitting a PATCH request to the #update action" do
           before { patch user_path(wrong_user) }
-          specify { expect(response).to redirect_to(root_url) }
+          it { should respond_by_redirecting_to_root_page }
         end
         
         describe "submitting a DELETE request to the #delete action" do
           before { delete user_path(wrong_user) }
-          specify { expect(response).to redirect_to(root_url) }
+          it { should respond_by_redirecting_to_root_page }
         end
       end
       
@@ -145,18 +143,18 @@ describe "Authentication" do
         
         describe "submitting a GET request to the #edit action" do
           before { get edit_debate_path(debate) }
-          specify { expect(response.body).not_to match('Edit user') }
-          specify { expect(response).to redirect_to(root_url) }
+          specify { expect(response.body).not_to match('Edit debate') }
+          it { should respond_by_redirecting_to_root_page }
         end
         
         describe "submitting a PATCH request to the #update action" do
           before { patch debate_path(debate) }
-          specify { expect(response).to redirect_to(root_url) }
+          it { should respond_by_redirecting_to_root_page }
         end
         
         describe "submitting a DELETE request to the #delete action" do
           before { delete debate_path(debate) }
-          specify { expect(response).to redirect_to(root_url) }
+          it { should respond_by_redirecting_to_root_page }
         end
       end
       
