@@ -1,5 +1,5 @@
 class DebatesController < ApplicationController
-  before_action :check_signed_in_user, only: [:new, :edit, :create, :destroy]
+  before_action :check_signed_in_user, only: [:new, :edit, :update, :create, :destroy]
   before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_debate, only: [:show, :edit, :update, :destroy, :delete]
   

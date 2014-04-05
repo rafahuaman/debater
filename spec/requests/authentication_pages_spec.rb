@@ -82,6 +82,7 @@ describe "Authentication" do
       end
       
       describe "Debates" do
+        
         describe "Pages" do
           
           describe "when visiting the create page" do
@@ -92,13 +93,25 @@ describe "Authentication" do
         end
         
         describe "Controller" do
-          describe "submitting to the create action" do
+          let(:debate) { FactoryGirl.create(:debate) }
+          
+          describe "submitting a POST request to the create action" do
             before { post debates_path }
             specify { expect(response).to redirect_to(signin_path) }
           end
           
-          describe "submitting to the destroy action" do
-            before { delete debate_path(FactoryGirl.create(:debate)) }
+          describe "submitting a GET request to the edit action" do
+            before { get edit_debate_path(debate) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+          
+          describe "submitting a PATCH request to the update action" do
+            before { patch debate_path(debate) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+          
+          describe "submitting a DELETE to the destroy action" do
+            before { delete debate_path(debate) }
             specify { expect(response).to redirect_to(signin_path) }
           end
         end
