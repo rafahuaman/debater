@@ -109,20 +109,42 @@ describe "Authentication" do
       let(:wrong_user) { FactoryGirl.create(:user, name: "Matt") }
       before { sign_in user, no_capybara: true}
       
-      describe "submitting a GET request to the Users#edit action" do
-        before { get edit_user_path(wrong_user) }
-        specify { expect(response.body).not_to match('Edit user') }
-        specify { expect(response).to redirect_to(root_url) }
+      describe "User Controller" do
+        describe "submitting a GET request to the #edit action" do
+          before { get edit_user_path(wrong_user) }
+          specify { expect(response.body).not_to match('Edit user') }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+        
+        describe "submitting a PATCH request to the #update action" do
+          before { patch user_path(wrong_user) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+        
+        describe "submitting a DELETE request to the #delete action" do
+          before { delete user_path(wrong_user) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
       end
       
-      describe "submitting a PATCH request to the Users#update action" do
-        before { patch user_path(wrong_user) }
-        specify { expect(response).to redirect_to(root_url) }
-      end
-      
-      describe "submitting a DELETE request to the Users#delete action" do
-        before { delete user_path(wrong_user) }
-        specify { expect(response).to redirect_to(root_url) }
+      describe "Debate Controller" do
+        let(:debate) { FactoryGirl.create(:debate, user: wrong_user) }
+        
+        describe "submitting a GET request to the #edit action" do
+          before { get edit_debate_path(debate) }
+          specify { expect(response.body).not_to match('Edit user') }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+        
+        describe "submitting a PATCH request to the #update action" do
+          before { patch debate_path(debate) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
+        
+        describe "submitting a DELETE request to the #delete action" do
+          before { delete debate_path(debate) }
+          specify { expect(response).to redirect_to(root_url) }
+        end
       end
       
     end

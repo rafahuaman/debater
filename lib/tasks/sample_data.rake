@@ -20,10 +20,10 @@ namespace :db do
       negative = Faker::Lorem.sentence(5)
       users.each { |user| user.debates.create!(title: title, content: content, affirmative: affirmative, negative: negative) }
     end
-    Chamber.create!(name: "Politics"
+    Chamber.create!(name: "Politics",
       description: "Politics discussions"      
       )
-    Chamber.create!(name: "Technology"
+    Chamber.create!(name: "Technology",
       description: "Technology discussions"      
       )
   end

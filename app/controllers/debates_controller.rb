@@ -1,5 +1,6 @@
 class DebatesController < ApplicationController
-  before_action :check_signed_in_user, only: [:new, :create, :destroy]
+  before_action :check_signed_in_user, only: [:new, :edit, :create, :destroy]
+  before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_debate, only: [:show, :edit, :update, :destroy, :delete]
   
   def index
@@ -44,5 +45,11 @@ class DebatesController < ApplicationController
      # Never trust parameters from the scary internet, only allow the white list through.
     def debate_params
       params.require(:debate).permit(:title, :content, :affirmative, :negative, :chamber_id)
+    end
+  
+    def check_correct_user
+      set_debate
+      correct_user = User.find_by(id: @debate.user_id)
+      redirect_to root_url unless current_user?(correct_user)
     end
 end
