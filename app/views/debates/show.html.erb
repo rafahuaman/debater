@@ -1,23 +1,23 @@
 <div class = "debateHeader">
   <div class="row" id="debateTitle">
-    <div class="large-12 columns">
+    <div class="large-12 columns panel callout">
       <h3>
         <%= @debate.title %>
       </h3>    
     </div>
   </div>
   <div class="row" id="debateContent">
-    <div class="large-12 columns">
+    <div class="large-12 columns panel radius">
         <%= @debate.content %>
     </div>
   </div>
   <div class="row" id="debateAffirmative">
-      <div class="large-6 columns">
+      <div class="large-6 columns panel">
         <h5>
           <%= @debate.affirmative %>
         </h5>
     </div>
-    <div class="large-6 columns" id="debateNegative">
+    <div class="large-6 columns panel" id="debateNegative">
       <h5>
         <%= @debate.negative %>
       </h5>
