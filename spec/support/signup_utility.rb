@@ -9,7 +9,7 @@ module SignUpUtility
     fill_in "Name", with: "Example"
     fill_in 'Password', with: "foobar", match: :prefer_exact
     fill_in 'Password confirmation', with: "wibble", match: :prefer_exact
-  end
+  end  
   
   RSpec::Matchers.define :have_signup_page_appearance do
 	  match do |page|

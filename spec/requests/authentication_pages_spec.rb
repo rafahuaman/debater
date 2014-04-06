@@ -56,8 +56,7 @@ describe "Authentication" do
             
             describe "after signing-in should redirect to previous page" do
               before do 
-                fill_in "Name",    with: user.name
-                fill_in "Password", with: user.password
+                valid_signin_form_completion(user)
                 click_button "Sign in"
               end
               it { should have_title("Edit user") }
@@ -88,6 +87,14 @@ describe "Authentication" do
             
             it { should have_sign_in_page_appearance }
           end
+          
+          describe "when visiting the edit page" do
+            let(:debate) { FactoryGirl.create(:debate) }
+            before { visit new_debate_path(debate) }
+            
+            it { should have_sign_in_page_appearance }
+          end
+          
         end
         
         describe "Controller" do
@@ -123,7 +130,6 @@ describe "Authentication" do
       describe "User Controller" do
         describe "submitting a GET request to the #edit action" do
           before { get edit_user_path(wrong_user) }
-          specify { expect(response.body).not_to match('Edit user') }
           it { should respond_by_redirecting_to_root_page }
         end
         
@@ -143,7 +149,6 @@ describe "Authentication" do
         
         describe "submitting a GET request to the #edit action" do
           before { get edit_debate_path(debate) }
-          specify { expect(response.body).not_to match('Edit debate') }
           it { should respond_by_redirecting_to_root_page }
         end
         
