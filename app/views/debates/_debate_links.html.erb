@@ -1,0 +1,6 @@
+<% if current_user == @debate.user %>
+  <ul class="inline-list">
+    <li><%= link_to "edit", edit_debate_path(@debate) %></li>
+    <li><%= link_to "delete", debate_path(@debate), method: :delete, data: { confirm: "You sure?" } %></li>
+  </ul>
+<% end %>

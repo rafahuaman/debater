@@ -25,7 +25,7 @@ module DebateUtility
 	  end
 	end
   
-  RSpec::Matchers.define :have_debate_show_page_appearance do |debate|
+  RSpec::Matchers.define :have_debate_show_data do |debate|
 	  match do |page|
       expect(page).to have_content(debate[:title])
       expect(page).to have_content(debate[:content])
@@ -34,6 +34,14 @@ module DebateUtility
       expect(page).to have_content(debate[:content])
 	  end
 	end
+  
+  RSpec::Matchers.define :have_debate_links_for_owner do |debate|
+	  match do |page|
+      expect(page).to have_link("edit", edit_debate_path(debate))
+      expect(page).to have_link("delete", debate_path(debate))
+	  end
+	end
+  
   
   RSpec::Matchers.define :have_debate_created_successfully_message  do
     match do |page|

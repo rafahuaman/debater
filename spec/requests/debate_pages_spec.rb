@@ -11,6 +11,7 @@ describe "Debate pages" do
     before { visit root_path }
     
     it { should have_link(debate.title, debate_path(debate)) }
+    it { should have_link(user.name, user_path(user)) }
   end
   
   describe "create a new debate" do
@@ -51,7 +52,7 @@ describe "Debate pages" do
       
       describe "should redirect to debate show page after saving the debate" do
         before { click_button submit } 
-        it { should have_debate_show_page_appearance(valid_new_debate_form_data) }
+        it { should have_debate_show_data(valid_new_debate_form_data) }
       end
       
       describe "should show success message after saving the debate" do
@@ -65,9 +66,20 @@ describe "Debate pages" do
   describe "show" do
     before { visit debate_path(debate) }
     
-    it { should have_debate_show_page_appearance(debate) }
+    it { should have_debate_show_data(debate) }
     
+    describe "when signed in as debate owner" do
+      before do
+        sign_in user
+        visit debate_path(debate)
+      end
+      it { should have_debate_links_for_owner }
+    end
     
+    describe "when not signed in as debate owner" do
+      it { should_not have_debate_links_for_owner }
+    end
+        
   end
   
   

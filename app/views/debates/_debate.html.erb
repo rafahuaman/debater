@@ -1,5 +1,5 @@
 <li>
-  <span class="debate_title"><%= debate.title %></span>
+  <span class="debate_title"><%= link_to debate.title, debate_path(debate) %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(debate.created_at) %> ago.
   </span>
