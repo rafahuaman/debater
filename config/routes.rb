@@ -2,6 +2,8 @@ Debater::Application.routes.draw do
   
   
 
+  resources :argument_posts
+
   resources :chambers
 
   match '/signup', to: 'users#new', via: 'get'

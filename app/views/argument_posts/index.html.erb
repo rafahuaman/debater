@@ -1,0 +1,33 @@
+<h1>Listing argument_posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>User</th>
+      <th>Debate</th>
+      <th>Type</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @argument_posts.each do |argument_post| %>
+      <tr>
+        <td><%= argument_post.content %></td>
+        <td><%= argument_post.user_id %></td>
+        <td><%= argument_post.debate_id %></td>
+        <td><%= argument_post.type %></td>
+        <td><%= link_to 'Show', argument_post %></td>
+        <td><%= link_to 'Edit', edit_argument_post_path(argument_post) %></td>
+        <td><%= link_to 'Destroy', argument_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Argument post', new_argument_post_path %>

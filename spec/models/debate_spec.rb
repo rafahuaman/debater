@@ -18,6 +18,7 @@ describe Debate do
   it { should respond_to :user }
   it { should respond_to :chamber }
   it { should respond_to :chamber_id }
+  it { should respond_to :argument_posts }
   its(:user) { should eq user }
   
   it { should be_valid }
