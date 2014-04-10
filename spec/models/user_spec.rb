@@ -16,6 +16,7 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:debates) }
+  it { should respond_to(:argument_posts) }
   
   
   it { should be_valid }
