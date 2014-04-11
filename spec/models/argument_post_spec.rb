@@ -58,10 +58,6 @@ describe ArgumentPost do
       before { @argument_post.content = "a"*5001 }
       it { should_not be_valid }
     end
-  end
-
-  
-  
-  
+  end  
   
 end

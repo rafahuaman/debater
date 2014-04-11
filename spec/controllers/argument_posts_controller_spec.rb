@@ -19,11 +19,15 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 describe ArgumentPostsController do
+  let(:user) { FactoryGirl.create(:user, name: "ArgumentPost")  }
+  let(:chamber) { FactoryGirl.create(:chamber)  }
+  let(:debate) { FactoryGirl.create(:debate)  }
 
   # This should return the minimal set of attributes required to create a valid
   # ArgumentPost. As you add validations to ArgumentPost, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "content" => "MyText" } }
+  let(:valid_attributes) { { content: "MyText", debate_id: debate.id,
+    type: "OriginalPost", position: "affirmative", user_id: user.id } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -75,9 +79,9 @@ describe ArgumentPostsController do
         assigns(:argument_post).should be_persisted
       end
 
-      it "redirects to the created argument_post" do
+      it "redirects to the debate page of the argument_post" do
         post :create, {:argument_post => valid_attributes}, valid_session
-        response.should redirect_to(ArgumentPost.last)
+        response.should redirect_to(debate_path(ArgumentPost.last.debate))
       end
     end
 
@@ -116,10 +120,10 @@ describe ArgumentPostsController do
         assigns(:argument_post).should eq(argument_post)
       end
 
-      it "redirects to the argument_post" do
+      it "redirects to the debate page of the updated argument_post" do
         argument_post = ArgumentPost.create! valid_attributes
         put :update, {:id => argument_post.to_param, :argument_post => valid_attributes}, valid_session
-        response.should redirect_to(argument_post)
+        response.should redirect_to(debate_url(argument_post.debate))
       end
     end
 

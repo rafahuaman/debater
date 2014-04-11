@@ -28,7 +28,7 @@ class ArgumentPostsController < ApplicationController
 
     respond_to do |format|
       if @argument_post.save
-        format.html { redirect_to @argument_post, notice: 'Argument post was successfully created.' }
+        format.html { redirect_to debate_url(@argument_post.debate), notice: 'Argument post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @argument_post }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class ArgumentPostsController < ApplicationController
   def update
     respond_to do |format|
       if @argument_post.update(argument_post_params)
-        format.html { redirect_to @argument_post, notice: 'Argument post was successfully updated.' }
+        format.html { redirect_to debate_url(@argument_post.debate), notice: 'Argument post was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
