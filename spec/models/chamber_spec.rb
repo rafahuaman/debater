@@ -23,5 +23,39 @@ describe Chamber do
   it { should respond_to(:name) }
   it { should respond_to(:description) }
   it { should respond_to(:debates) }
+  
+  it { should be_valid }
+  
+  describe "name" do
+    describe "when it is missing" do
+      before { @chamber.name = nil }
+      it { should_not be_valid }
+    end
+    
+    describe "when it is blank" do
+      before { @chamber.name = " " }
+      it { should_not be_valid }
+    end
+    
+    describe "when it is a duplicate" do
+      before do
+        chamber_with_same_name = @chamber.dup 
+        chamber_with_same_name.save
+      end
+      it { should_not be_valid }
+    end
+  end
+  
+  describe "description" do
+    describe "when it is missing" do
+      before { @chamber.description = nil }
+      it { should_not be_valid }
+    end
+    
+    describe "when it is blank" do
+      before { @chamber.description = " " }
+      it { should_not be_valid }
+    end
+  end
 
 end
