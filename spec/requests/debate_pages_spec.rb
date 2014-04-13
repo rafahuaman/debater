@@ -5,7 +5,7 @@ describe "Debate pages" do
   
   let(:chamber) { FactoryGirl.create(:chamber)  }
   let(:user) { FactoryGirl.create(:user)  }
-  let!(:debate) { FactoryGirl.create(:debate, title: "test title", user: user, chamber: chamber) }
+  let!(:debate) { FactoryGirl.create(:debate, user: user, chamber: chamber) }
 
   describe "index" do  
     before { visit root_path }

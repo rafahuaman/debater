@@ -1,14 +1,14 @@
 FactoryGirl.define do  
   
   factory :user do
-    name     "Dave"
+    sequence(:name) { |n| "Person #{n}" }
     password "foobar"
     password_confirmation "foobar"
   end
   
   factory :chamber do
-    name "Lorem"
-    description "Ipsun"
+    sequence(:name) { |n| "Chamber #{n}" }
+    description "Chamber Description"
   end
 
   factory :debate do

@@ -69,6 +69,6 @@ class ArgumentPostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def argument_post_params
-      params.require(:argument_post).permit(:content, :user_id, :debate_id, :type)
+      params.require(:argument_post).permit(:content, :user_id, :debate_id, :type, :position)
     end
 end

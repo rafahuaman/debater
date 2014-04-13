@@ -1,11 +1,32 @@
 require 'spec_helper'
 
-describe "ArgumentPosts" do
-  describe "GET /argument_posts" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get argument_posts_path
-      response.status.should be(200)
+describe "Argument Post Pages" do
+  subject { page }
+  let(:chamber) { FactoryGirl.create(:chamber)  }
+  let(:user) { FactoryGirl.create(:user)  }
+  let!(:debate) { FactoryGirl.create(:debate) }
+
+  describe "Create a new Argument Post" do
+    before do
+      sign_in user
+      visit debate_path(debate)
     end
+    
+    let(:submit_affirmative)  { "Post to the Affirmative" }
+    let(:submit_nagative)  { "Post to the Negative" }
+
+    it { should have_link(submit_affirmative)  }
+    it { should have_link(submit_nagative)  }
+    
+    describe "with invalid information" do
+      before do 
+        click_link submit_affirmative
+        fill_in "Content", with: "Lorem Ipsum"
+      end
+      #TODO
+
+    end
+
   end
 end
+

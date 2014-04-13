@@ -59,5 +59,23 @@ describe ArgumentPost do
       it { should_not be_valid }
     end
   end  
+
+  describe "Position" do
+    describe "when it is missing" do
+      before { @argument_post.position = nil }
+      it { should_not be_valid } 
+    end
+
+    describe "when is it blank" do
+      before { @argument_post.position = " " }
+      it { should_not be_valid } 
+    end
+
+    describe "when it is invalid" do
+      before { @argument_post.position = "Invalid" }
+      it { should_not be_valid } 
+    end
+    
+  end
   
 end
