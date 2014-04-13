@@ -14,7 +14,7 @@ class ArgumentPostsController < ApplicationController
 
   # GET /argument_posts/new
   def new
-    @argument_post = ArgumentPost.new
+    @argument_post = ArgumentPost.new(debate: params[:debate_id])
   end
 
   # GET /argument_posts/1/edit
