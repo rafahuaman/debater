@@ -66,6 +66,9 @@ describe ArgumentPostsController do
   end
 
   describe "POST create" do
+    before do 
+      sign_in user, no_capybara: true
+    end
     describe "with valid params" do
       it "creates a new ArgumentPost" do
         expect {
