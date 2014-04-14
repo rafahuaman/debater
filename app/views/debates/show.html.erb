@@ -28,7 +28,7 @@
       <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "affirmative", type: "OriginalPost") %> class="button expand">Post to the Affirmative</a>
     </div>
     <div class="large-6 columns" id="PostToNegative">
-      <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "negative", type: "OriginalPost") %> class="button expand">Post to the Negative</a>
+      <a href=<%= new_argument_post_path(debate: @debate, position: "negative", type: "OriginalPost") %> class="button expand">Post to the Negative</a>
     </div>
   </div>
   <div class="row" id="debateLinks">

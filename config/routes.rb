@@ -4,6 +4,11 @@ Debater::Application.routes.draw do
 
   resources :argument_posts
 
+  resources :contribution_post, :controller => "argument_post", :type => "ContributionPost"
+  resources :original_posts, :controller => "argument_post", :type => "OriginalPost"
+  resources :correction_post, :controller => "argument_post", :type => "CorrectionPost"
+  resources :counter_argument_post, :controller => "argument_post", :type => "CounterArgumentPost"
+
   resources :chambers
 
   match '/signup', to: 'users#new', via: 'get'

@@ -3,9 +3,12 @@
 
   <div class="form-inputs">
     <%= f.input :content %>
+    <%= f.hidden_field :debate_id, value: params[:debate_id] %>
+    <%= f.hidden_field :position, value: params[:position] %>
+    <%= f.hidden_field :type, value: params[:type] %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, "Post" %>
   </div>
 <% end %>

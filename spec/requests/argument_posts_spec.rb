@@ -14,6 +14,7 @@ describe "Argument Post Pages" do
     
     let(:submit_affirmative)  { "Post to the Affirmative" }
     let(:submit_negative)  { "Post to the Negative" }
+    let(:submit)  { "Post" }
 
     it { should have_link(submit_affirmative)  }
     it { should have_link(submit_negative)  }
@@ -24,7 +25,7 @@ describe "Argument Post Pages" do
       end
       
       it "should not create a debate" do
-        expect { click_button submit_affirmative }.not_to change(ArgumentPost, :count)
+        expect { click_button submit }.not_to change(ArgumentPost, :count)
       end
 
       describe "after submission with blanks" do
@@ -33,9 +34,18 @@ describe "Argument Post Pages" do
 
         it { should have_selector("div.alert-box", text: "Please review the problems below:") }
         it { should have_content("can't be blank") }
-
       end  
+    end
 
+    describe "with valid information" do
+      before do 
+        click_link submit_affirmative
+        fill_in "Content", with: "Valid Debate"
+      end
+
+      it "should create a debate" do
+        expect { click_button submit }.to change(ArgumentPost, :count).by(1)
+      end
     end
 
   end

@@ -14,7 +14,7 @@ class ArgumentPostsController < ApplicationController
 
   # GET /argument_posts/new
   def new
-    @argument_post = ArgumentPost.new(debate: params[:debate_id])
+    @argument_post = ArgumentPost.new()
   end
 
   # GET /argument_posts/1/edit
@@ -24,14 +24,14 @@ class ArgumentPostsController < ApplicationController
   # POST /argument_posts
   # POST /argument_posts.json
   def create
-    @argument_post = ArgumentPost.new(argument_post_params)
+    @argument_post = current_user.argument_posts.build(argument_post_params)
 
     respond_to do |format|
       if @argument_post.save
         format.html { redirect_to debate_url(@argument_post.debate), notice: 'Argument post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @argument_post }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'new'  }
         format.json { render json: @argument_post.errors, status: :unprocessable_entity }
       end
     end
