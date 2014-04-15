@@ -1,39 +1,5 @@
 <div class = "debateHeader">
-  <div class="row" id="debateTitle">
-    <div class="large-12 columns panel callout">
-      <h3>
-        <%= @debate.title %>
-      </h3>    
-    </div>
-  </div>
-  <div class="row" id="debateContent">
-    <div class="large-12 columns panel radius">
-        <%= @debate.content %>
-    </div>
-  </div>
-  <div class="row" >
-    <div class="large-6 columns panel" id="debateAffirmative">
-      <h5>
-        <%= @debate.affirmative %>
-      </h5>
-    </div>
-    <div class="large-6 columns panel" id="debateNegative">
-      <h5>
-        <%= @debate.negative %>
-      </h5>
-    </div>
-  </div>
-  <div class="row" >
-    <div class="large-6 columns" id="PostToAffirmative">
-      <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "affirmative", type: "OriginalPost") %> class="button expand">Post to the Affirmative</a>
-    </div>
-    <div class="large-6 columns" id="PostToNegative">
-      <a href=<%= new_argument_post_path(debate: @debate, position: "negative", type: "OriginalPost") %> class="button expand">Post to the Negative</a>
-    </div>
-  </div>
-  <div class="row" id="debateLinks">
-    <div class="large-12 columns">
-      <%= render 'debate_links' %>
-    </div>
-  </div>
+  <%= render 'debate_header' %>
+  <%= render 'debate_header_post_buttons' %>
+  <%= render 'debate_links' %>
 </div>
