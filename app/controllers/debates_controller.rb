@@ -25,6 +25,8 @@ class DebatesController < ApplicationController
   end
   
   def show
+    @affirmative_posts = @debate.argument_posts.where("position = 'affirmative' ")
+    @negative_posts = @debate.argument_posts.where("position = 'negative' ")
   end
   
   def edit

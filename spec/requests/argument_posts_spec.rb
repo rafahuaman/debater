@@ -59,8 +59,8 @@ describe "Argument Post Pages" do
           it { should have_content("Valid Debate") }
 
           specify "on the correct debate side" do
-            expect(find('div#afirmative_posts')).to have_content('Valid Debate')
-            expect(find('div#afirmative_posts')).to have_content(user.name)
+            expect(find('div#affirmative_posts')).to have_content('Valid Debate')
+            expect(find('div#affirmative_posts')).to have_content(user.name)
           end
         end
       
