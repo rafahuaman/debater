@@ -62,6 +62,32 @@ describe "Argument Post Pages" do
             expect(find('div#affirmative_posts')).to have_content('Valid Debate')
             expect(find('div#affirmative_posts')).to have_content(user.name)
           end
+        end      
+      end
+
+      describe "submit to negative" do
+        before do 
+          click_link submit_negative
+          fill_in "Content", with: "Valid Negative Side"
+        end
+
+        it "should create an ArgumentPost" do
+          expect { click_button submit }.to change(ArgumentPost, :count).by(1)
+        end
+
+        describe "should redirect to debate show page after submitting the Argument Post" do
+          before { click_button submit } 
+          it { should have_debate_show_data(debate) }
+        end
+
+        describe "should display the affirmative post" do
+          before { click_button submit } 
+          it { should have_content("Valid Negative Side") }
+
+          specify "on the correct debate side" do
+            expect(find('div#negative_posts')).to have_content('Valid Negative Side')
+            expect(find('div#negative_posts')).to have_content(user.name)
+          end
         end
       
       end
