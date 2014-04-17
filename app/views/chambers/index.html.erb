@@ -14,7 +14,7 @@
   <tbody>
     <% @chambers.each do |chamber| %>
       <tr>
-        <td><%= chamber.name %></td>
+        <td><%= link_to chamber.name, chamber_path(chamber) %></td>
         <td><%= chamber.description %></td>
         <td><%= link_to 'Show', chamber %></td>
         <td><%= link_to 'Edit', edit_chamber_path(chamber) %></td>
