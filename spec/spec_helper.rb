@@ -47,6 +47,7 @@ Spork.prefork do
     config.include SignUpUtility
     config.include DebateUtility
     config.include AuthorizationUtility
+    config.include ChamberUtility
   end
 end
 
