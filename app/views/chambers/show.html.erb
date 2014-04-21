@@ -10,5 +10,10 @@
   <%= @chamber.description %>
 </p>
 
-<%= link_to 'Edit', edit_chamber_path(@chamber) %> |
-<%= link_to 'Back', chambers_path %>
+	<%= render 'debates/debate_table_list' %>
+
+<br>
+
+<%= link_to 'Submit a New Debate', new_debate_path %>
+
+

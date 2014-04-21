@@ -6,6 +6,9 @@ describe "chambers/show" do
       :name => "Name",
       :description => "MyText"
     ))
+    @debates = [FactoryGirl.create(:debate, chamber: @chamber),
+                FactoryGirl.create(:debate, chamber: @chamber)]
+
   end
 
   it "renders attributes in <p>" do

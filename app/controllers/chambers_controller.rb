@@ -10,6 +10,7 @@ class ChambersController < ApplicationController
   # GET /chambers/1
   # GET /chambers/1.json
   def show
+    @debates = @chamber.debates
   end
 
   # GET /chambers/new

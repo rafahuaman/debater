@@ -20,4 +20,24 @@ module ChamberUtility
     end
   end
 
+  RSpec::Matchers.define :have_chamber_show_page_appearance do |new_chamber_information|
+    match do |page|
+      expect(page).to have_content(new_chamber_information[:name])
+      expect(page).to have_content(new_chamber_information[:description])
+    end
+  end
+
+  RSpec::Matchers.define :have_chamber_created_successfully_message do
+    match do |page|
+      expect(page).to have_selector("div.alert-box", text: "Chamber was successfully created")
+    end
+  end  
+  
+  RSpec::Matchers.define :have_links_to_chamber_debates do |debate|
+    match do |page|
+      expect(page).to have_link(debate.title, debate_path(debate))
+    end
+  end  
+  
+
 end

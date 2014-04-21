@@ -44,6 +44,27 @@ describe "Chambers Pages" do
       it "should create a chamber" do
         expect{ click_button submit }.to change(Chamber, :count).by(1)
       end
+
+      describe "should redirect to chamber show page after creating the chamber" do
+        before { click_button submit } 
+        it { should have_chamber_show_page_appearance(valid_new_chamber_form_data)}
+
+        describe "should have links to the debates in the chamber" do
+          let!(:new_chamber) { Chamber.last }
+          let!(:debate) { FactoryGirl.create(:debate, user: user, chamber: new_chamber) }
+          before do
+            visit chamber_path(chamber)
+          end
+
+          it { have_links_to_chamber_debates(debate) }
+
+        end
+      end
+      
+      describe "should show success message after saving the debate" do
+        before { click_button submit }
+        it { should have_chamber_created_successfully_message(valid_new_chamber_form_data) }
+      end
       
     end
 

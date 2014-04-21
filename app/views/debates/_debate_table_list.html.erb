@@ -1,0 +1,23 @@
+<table id="debate_list">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @debates.each do |debate| %>
+      <tr>
+        <td><%= link_to "#{debate.title}", debate_path(debate) %></td>
+        <td><%= link_to "#{debate.user.name}", user_path(debate.user_id) %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
