@@ -17,6 +17,7 @@ describe "Navigation Requests Spec" do
     it "should show the sidebar on all pages" do
       visit root_path
       should have_link('Submit a new debate', new_debate_path)
+      should have_link('Create a new chamber', new_chamber_path)
     end
   end
 end
