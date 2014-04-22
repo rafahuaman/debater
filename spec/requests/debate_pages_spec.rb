@@ -12,6 +12,7 @@ describe "Debate pages" do
     
     it { should have_link(debate.title, debate_path(debate)) }
     it { should have_link(user.name, user_path(user)) }
+    it { should have_link(chamber.name, chamber_path(chamber)) }
   end
   
   describe "create a new debate" do

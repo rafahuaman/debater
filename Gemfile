@@ -10,7 +10,7 @@ gem 'pg'
 
 gem 'simple_form'
 gem 'foundation-rails'
-gem 'faker', '1.1.2'
+gem 'faker'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'

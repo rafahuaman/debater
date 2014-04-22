@@ -11,20 +11,25 @@ namespace :db do
                    password: password,
                    password_confirmation: password)
     end
+
+    10.times do |n|
+      name = "#{Faker::Commerce.department}#{n+1}"
+      description = Faker::Lorem.sentence(10)
+      Chamber.create!(name: name, description: description)
+    end
     
     users = User.all(limit: 6)
-    50.times do
+    chambers = Chamber.all
+    10.times do
       title = Faker::Lorem.sentence(5)
       content = Faker::Lorem.sentence(10)
       affirmative = Faker::Lorem.sentence(5)
       negative = Faker::Lorem.sentence(5)
-      users.each { |user| user.debates.create!(title: title, content: content, affirmative: affirmative, negative: negative) }
+      users.each do |user| 
+        chambers.each do |chamber|
+          user.debates.create!(title: title, content: content, affirmative: affirmative, negative: negative, chamber_id: chamber.id) 
+        end
+      end
     end
-    Chamber.create!(name: "Politics",
-      description: "Politics discussions"      
-      )
-    Chamber.create!(name: "Technology",
-      description: "Technology discussions"      
-      )
   end
 end
