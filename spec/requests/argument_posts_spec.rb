@@ -63,7 +63,9 @@ describe "Argument Post Pages" do
             expect(find('div#affirmative_posts')).to have_content(user.name)
           end
 
-          it { should have_link("Reply") }
+          it { should have_link("Contribution") }
+          it { should have_link("Correction") }
+          it { should have_link("Counterargument") }
         end      
       end
 
