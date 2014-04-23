@@ -62,6 +62,8 @@ describe "Argument Post Pages" do
             expect(find('div#affirmative_posts')).to have_content('Valid Debate')
             expect(find('div#affirmative_posts')).to have_content(user.name)
           end
+
+          it { should have_link("Reply") }
         end      
       end
 

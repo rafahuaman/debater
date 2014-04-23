@@ -1,26 +1,12 @@
   <div class="row" >
     <div class="large-6 columns" id="affirmative_posts">
 	  <% @affirmative_posts.each do |affirmative_post| %>
-	    <div class="panel" >
-	   	  <div class="secondary label author" >
-	        <%= affirmative_post.user.name %>
-	      </div>
-	      <div class="argument_post" >
-	      	<p><%= affirmative_post.content %></p>
-	      </div>
-	    </div>
+	  	<%= render 'position', position_post: affirmative_post %>
 	  <% end %>
     </div>
     <div class="large-6 columns" id="negative_posts">
 	  <% @negative_posts.each do |negative_post| %>
-	    <div class="panel" >
-	   	  <div class="secondary label author" >
-	        <%= negative_post.user.name %>
-	      </div>
-	      <div class="argument_post" >
-	      	<p><%= negative_post.content %></p>
-	      </div>
-	    </div>
+	    <%= render 'position', position_post: negative_post %>
 	  <% end %>
     </div>
   </div>
