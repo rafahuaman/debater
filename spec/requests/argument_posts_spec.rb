@@ -108,7 +108,35 @@ describe "Argument Post Pages" do
         
       end
     end
-
   end
+
+  describe "Reply as Contribution to an Argument Post" do
+    let(:submit)  { "Post" }
+    let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }
+    before do
+      sign_in user
+      visit debate_path(debate)
+      click_link "Contribution"
+    end
+
+    it { should have_content "Post a Contribution" }
+
+    describe "Should create a nested argument post" do
+      before do 
+        fill_in "Content", with: "Valid Contribution"
+        click_button submit
+      end
+
+      it { should have_debate_show_data(debate) }
+      it { should have_content("Valid Contribution") }
+    end
+
+
+    
+  end
+
+
+
 end
+
 

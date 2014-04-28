@@ -19,6 +19,14 @@ FactoryGirl.define do
     user
     chamber
   end
+
+  factory :original_post do
+    content "Lorem ipsum"
+    user
+    debate
+    type "OriginalPost"
+    position "affirmative"
+  end
   
   
 end
