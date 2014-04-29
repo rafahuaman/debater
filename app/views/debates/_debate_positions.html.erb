@@ -1,12 +1,12 @@
   <div class="row" >
     <div class="large-6 columns" id="affirmative_posts">
 	  <% @affirmative_posts.each do |affirmative_post| %>
-	  	<%= render 'position', position_post: affirmative_post %>
+	  	<%= render 'argument_posts/argument_post', argument_post: affirmative_post %>
 	  <% end %>
     </div>
     <div class="large-6 columns" id="negative_posts">
 	  <% @negative_posts.each do |negative_post| %>
-	    <%= render 'position', position_post: negative_post %>
+	    <%= render 'argument_posts/argument_post', argument_post: negative_post %>
 	  <% end %>
     </div>
   </div>

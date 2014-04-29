@@ -129,6 +129,10 @@ describe "Argument Post Pages" do
 
       it { should have_debate_show_data(debate) }
       it { should have_content("Valid Contribution") }
+
+      it "should be nested " do
+        expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
+      end
     end
 
 
