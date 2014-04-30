@@ -16,6 +16,8 @@ describe ArgumentPost do
   it { should respond_to(:debate) }
   it { should respond_to(:type) }
   it { should respond_to(:position) }
+  it { should respond_to(:children) }
+  it { should respond_to(:parent) }
   its(:user) { should eq user }
   its(:debate) { should eq debate }
   
@@ -75,7 +77,18 @@ describe ArgumentPost do
       before { @argument_post.position = "Invalid" }
       it { should_not be_valid } 
     end
-    
+  end
+
+  describe "Parent" do
+    describe "when it is missing" do
+      it { should be_valid }
+    end
+
+    describe "when it is present" do
+      let(:parent_post) { FactoryGirl.create(:original_post)  }
+      before { @argument_post.parent = parent_post }
+      it { should be_valid }
+    end
   end
   
 end
