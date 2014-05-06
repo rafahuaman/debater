@@ -134,12 +134,8 @@ describe "Argument Post Pages" do
         expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
       end
     end
-
-
     
   end
-
-
 
 end
 

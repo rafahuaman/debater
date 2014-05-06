@@ -5,15 +5,5 @@
 	      <div class="comment_body"  >
 	      	<p><%= argument_post.content %></p>
 	      </div>
-	      <small>Replies:
-	      <div class="inline-list argument_post_links" >
-	      	<li><%= link_to "Contribution", 
-					      	new_argument_post_path(debate_id: argument_post.debate_id, 
-					    	  	position: argument_post.position, 
-					      		type: "ContributionPost") %></li>
-  				<li><a href="#">Correction</a></li>
-  				<li><a href="#">Counterargument</a></li>
-  				<li><%= link_to 'Edit', edit_argument_post_path(argument_post) %></li>  				
-	      </div>
-	      </small>
+	      <%= render 'argument_posts/argument_post_links', argument_post: argument_post %>
 	    </div>
