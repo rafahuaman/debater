@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Authentication" do
+  let(:user) { FactoryGirl.create(:user) }
   
   subject { page }
   
@@ -27,7 +28,7 @@ describe "Authentication" do
     end
     
     describe "with valid username and password" do
-      let(:user) { FactoryGirl.create(:user) }
+      
       before { sign_in user }
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
@@ -42,8 +43,6 @@ describe "Authentication" do
   end
   
   describe "Authorization" do
-    let(:user) { FactoryGirl.create(:user) }
-    
     describe "As non-signed-in user" do
       
       describe "User" do
@@ -120,6 +119,39 @@ describe "Authentication" do
             it { should respond_by_redirecting_to_sign_in_page }
           end
         end
+      end
+
+      describe "when attempting to visit a protected page" do
+        before do
+          visit new_debate_path
+          fill_in "Name",    with: user.name
+          fill_in "Password", with: user.password
+          click_button "Sign in"
+        end
+
+        describe "after signing in" do
+           it "should render the desired protected page" do
+             expect(page).to have_title('Submit a debate')
+           end
+
+           describe "when signing in again" do
+            before do
+              click_link "Sign out"
+              visit signin_path
+              fill_in "Name",    with: user.name
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end
+
+            it "should render the default (root) page" do
+              expect(current_path).to eq(root_path)
+            end
+             
+           end
+
+          
+        end
+        
       end
     end
     
