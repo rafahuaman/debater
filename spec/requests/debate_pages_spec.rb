@@ -1,18 +1,34 @@
 require 'spec_helper'
 
 describe "Debate pages" do
-  subject { page }
-  
+
   let(:chamber) { FactoryGirl.create(:chamber)  }
   let(:user) { FactoryGirl.create(:user)  }
   let!(:debate) { FactoryGirl.create(:debate, user: user, chamber: chamber) }
 
+  subject { page }
+
   describe "index" do  
     before { visit root_path }
     
-    it { should have_link(debate.title, debate_path(debate)) }
-    it { should have_link(user.name, user_path(user)) }
-    it { should have_link(chamber.name, chamber_path(chamber)) }
+    it { should have_title("Home") }
+
+    describe "pagination" do
+      before(:all) { 30.times { FactoryGirl.create(:debate) } }
+      after(:all) do 
+        Debate.delete_all 
+        User.delete_all
+        Chamber.delete_all
+      end
+
+       it { should have_selector('div.pagination') }
+
+       it "should list each debate" do
+        Debate.paginate(page: 1).each do |debate|
+          expect(page).to have_selector('td', text: debate.title)
+        end
+      end
+    end 
   end
   
   describe "create a new debate" do

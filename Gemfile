@@ -11,6 +11,9 @@ gem 'pg'
 gem 'simple_form'
 gem 'foundation-rails'
 gem 'faker'
+gem 'will_paginate'
+gem 'will_paginate-foundation'
+
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'

@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :debate do
-    title "Lorem ipsum"
+    sequence(:title) { |n| "Lorem ipsum #{n}" }
     content "Lorem ipsum"
     affirmative "Affirmative"
     negative "Negative"

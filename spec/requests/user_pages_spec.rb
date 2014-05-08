@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe "User pages" do
+  let(:user) { FactoryGirl.create(:user) }
+
   subject { page }
   
   describe "signup page" do
@@ -43,7 +45,6 @@ describe "User pages" do
   end
   
   describe "edit" do
-    let(:user) { FactoryGirl.create(:user) }
     let(:submit) { "Save changes" }
     before do
       sign_in user
@@ -75,7 +76,6 @@ describe "User pages" do
   end
 
   describe "destroy page" do
-      let(:user) { FactoryGirl.create(:user) }
       let(:submit) { "Save changes" }
       before do
         sign_in user
@@ -105,7 +105,6 @@ describe "User pages" do
   end
   
   describe "profile page" do
-    let(:user) { FactoryGirl.create(:user) }
     let!(:d1) { FactoryGirl.create(:debate, content:"First debate", user: user) }
     let!(:d2) { FactoryGirl.create(:debate, content:"Second debate", user: user) }
     

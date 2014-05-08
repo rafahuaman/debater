@@ -4,7 +4,7 @@ class DebatesController < ApplicationController
   before_action :set_debate, only: [:show, :edit, :update, :destroy, :delete]
   
   def index
-    @debates = Debate.all
+    @debates = Debate.paginate(page: params[:page])
   end
   
   def new

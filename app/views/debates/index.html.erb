@@ -1,4 +1,12 @@
+<% provide(:title, 'Home') %>
+
+<br>
+
+<%= will_paginate @debates, renderer: FoundationPagination::Rails %>
+
 <%= render 'debate_table_list' %>
+
+<%= will_paginate @debates, renderer: FoundationPagination::Rails %>
 
 <br>
 
