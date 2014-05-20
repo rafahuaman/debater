@@ -20,13 +20,16 @@ FactoryGirl.define do
     chamber
   end
 
-  factory :original_post do
+  factory :argument_post, class: ArgumentPost do
     content "Lorem ipsum"
     user
     debate
-    type "OriginalPost"
     position "affirmative"
   end
+
+  factory :original_post, class: OriginalPost, parent: :argument_post do
+    type "OriginalPost"
+  end  
   
   
 end

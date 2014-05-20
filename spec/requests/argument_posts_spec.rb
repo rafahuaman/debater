@@ -133,6 +133,8 @@ describe "Argument Post Pages" do
       it "should be nested " do
         expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
       end
+
+      it { should have_link("accept contribution")}
     end
     
   end
