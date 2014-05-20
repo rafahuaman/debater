@@ -21,7 +21,7 @@ describe "Debate pages" do
         Chamber.delete_all
       end
 
-       it { should have_selector('div.pagination') }
+       it { should have_selector('ul.pagination.pagination') }
 
        it "should list each debate" do
         Debate.paginate(page: 1).each do |debate|
