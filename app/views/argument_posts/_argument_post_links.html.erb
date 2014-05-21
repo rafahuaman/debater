@@ -10,6 +10,12 @@
 	  				<li><%= link_to 'Edit', edit_argument_post_path(argument_post) %></li>  				
 		      </div>
 	      </small>
-	    	<small>Actions:
-	    	</small>
+	    	<% if signed_in? and current_user?(get_parent_post_user(argument_post)) %>
+	    		<small>Actions:
+	    			<div class="inline-list argument_post_action_links" >
+       		  	<li><a href="#">accept contribution</a></li>
+       		  </div>
+          </small>
+        <% end %>
+	    	
 

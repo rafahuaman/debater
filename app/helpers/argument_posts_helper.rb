@@ -6,4 +6,17 @@ module ArgumentPostsHelper
 		return "Counterargument" if type == "CounterArgumentPost"
 	end
 
+	def get_parent_post_user(argument_post)
+		parent_post = argument_post.parent
+
+		if parent_post.nil? then
+			nil
+		else
+			parent_post.user
+		end
+
+		
+	end
+
+
 end

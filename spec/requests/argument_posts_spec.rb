@@ -134,11 +134,32 @@ describe "Argument Post Pages" do
         expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
       end
 
-      it { should have_link("accept contribution")}
-    end
-    
-  end
+      describe "Show accept contribution link" do
+        it { should have_link("accept contribution")}
 
+        describe "should not show link if signed out" do
+          before do
+            click_link "Sign out" 
+            visit debate_path(debate)
+          end
+
+          it { should_not have_link("accept contribution")}
+        end
+
+        describe "should not show link if signed in user does not own parent argument post" do
+          let(:other_user) { FactoryGirl.create(:user)  }
+
+          before do
+            sign_in other_user
+            visit debate_path(debate)
+          end
+
+          it { should_not have_link("accept contribution")}
+          
+        end
+      end 
+    end
+  end
 end
 
 
