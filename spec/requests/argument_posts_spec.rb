@@ -134,28 +134,51 @@ describe "Argument Post Pages" do
         expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
       end
 
-      describe "Show accept contribution link" do
+      describe "Accept contribution link" do
         it { should have_link("accept contribution")}
 
-        describe "should not show link if signed out" do
-          before do
-            click_link "Sign out" 
-            visit debate_path(debate)
+        describe "Visibiility" do
+          describe "should not show link if signed out" do
+            before do
+              click_link "Sign out" 
+              visit debate_path(debate)
+            end
+
+            it { should_not have_link("accept contribution")}
           end
 
-          it { should_not have_link("accept contribution")}
+          describe "should not show link if signed in user does not own parent argument post" do
+            let(:other_user) { FactoryGirl.create(:user)  }
+
+            before do
+              sign_in other_user
+              visit debate_path(debate)
+            end
+
+            it { should_not have_link("accept contribution")}    
+          end
         end
 
-        describe "should not show link if signed in user does not own parent argument post" do
-          let(:other_user) { FactoryGirl.create(:user)  }
+        describe "Functionality" do
+          let!(:contribution_post) { ArgumentPost.last }
 
-          before do
-            sign_in other_user
-            visit debate_path(debate)
+          describe "Clik link " do
+            before do
+              click_link "accept contribution"
+            end
+
+            it "should concatenate child post to parent" do
+              new_content = "#{affirmative_post.content}\n#{contribution_post.content}" 
+              expect(find("div.argument_post##{affirmative_post.id}")).to have_content(new_content)
+              expect(find("div.argument_post##{contribution_post.id}")).not_to have_content('Valid Contribution')              
+            end
+
+            
           end
 
-          it { should_not have_link("accept contribution")}
-          
+          describe "Should hide child post " do
+            
+          end
         end
       end 
     end
