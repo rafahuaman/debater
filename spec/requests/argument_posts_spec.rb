@@ -168,9 +168,9 @@ describe "Argument Post Pages" do
             end
 
             it "should concatenate child post to parent" do
-              new_content = "#{affirmative_post.content}\n#{contribution_post.content}" 
+              new_content = "#{affirmative_post.content}\n<br>\n#{contribution_post.user.name}: #{contribution_post.content}" 
               expect(find("div.argument_post##{affirmative_post.id}")).to have_content(new_content)
-              expect(find("div.argument_post##{contribution_post.id}")).not_to have_content('Valid Contribution')              
+              #expect(find("div.argument_post##{contribution_post.id}")).not_to have_content('Valid Contribution')              
             end
 
             

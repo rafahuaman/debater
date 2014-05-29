@@ -14,8 +14,12 @@ module ArgumentPostsHelper
 		else
 			parent_post.user
 		end
+	end
 
-		
+
+	def add_contribution(parent_post, contribution)
+		contribution_section = "#{contribution.user.name}: #{contribution.content}"
+		new_content = "#{parent_post.content}\n#{contribution_section}"
 	end
 
 

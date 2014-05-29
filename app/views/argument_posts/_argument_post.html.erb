@@ -3,7 +3,7 @@
 	        <%= argument_post.user.name %>
 	      </div>
 	      <div class="comment_body"  >
-	      	<p><%= argument_post.content %></p>
+	      	<p><%= h(argument_post.content).gsub(/\n/, '<br/>').html_safe %></p>
 	      </div>
 	      <%= render 'argument_posts/argument_post_links', argument_post: argument_post %>
 	      <% argument_post.children.each do |child_post| %>
