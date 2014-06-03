@@ -40,5 +40,5 @@ $grayMediumLight: #eaeaea;
 }
 
 .argument_post {
-  @include grid-row($behavior: nest);
+  @include grid-row($behavior: nest-collapse);
 }

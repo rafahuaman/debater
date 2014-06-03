@@ -168,16 +168,8 @@ describe "Argument Post Pages" do
             end
 
             it "should concatenate child post to parent" do
-              new_content = "#{affirmative_post.content}\n<br>\n#{contribution_post.user.name}: #{contribution_post.content}" 
-              expect(find("div.argument_post##{affirmative_post.id}")).to have_content(new_content)
-              #expect(find("div.argument_post##{contribution_post.id}")).not_to have_content('Valid Contribution')              
+              expect(find("div.argument_post##{affirmative_post.id}").text).to match(/(#{affirmative_post.content}#{contribution_post.user.name}: #{contribution_post.content})/)
             end
-
-            
-          end
-
-          describe "Should hide child post " do
-            
           end
         end
       end 
