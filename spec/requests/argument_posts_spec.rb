@@ -200,6 +200,11 @@ describe "Argument Post Pages" do
       it "should be nested " do
         expect(find("div.argument_post##{incorrect_post.id}")).to have_content(correct_content)
       end
+
+      describe "Accept Correction link" do
+        it { should have_link("accept correction")}
+        
+      end
     end
     
   end

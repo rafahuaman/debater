@@ -17,10 +17,18 @@
 	    	<% if signed_in? and current_user?(get_parent_post_user(argument_post)) %>
 	    		<small>Actions:
 	    			<div class="inline-list argument_post_action_links" >
-       		  	<li><%= link_to "accept contribution", 
-       		  									argument_post_path(argument_post.parent, 
-       		  									argument_post: {content: add_contribution(argument_post.parent, argument_post)} ), 
-       		  									method: :put  %>
+	    				<% case argument_post.type %>
+	    				<% when "ContributionPost" %>
+	       		  	<li><%= link_to "accept contribution", 
+	       		  									argument_post_path(argument_post.parent, 
+	       		  									argument_post: {content: add_contribution(argument_post.parent, argument_post)} ), 
+	       		  									method: :put  %>
+							<% when "CorrectionPost" %>
+								<li><%= link_to "accept correction", 
+		       		  									argument_post_path(argument_post.parent, 
+		       		  									argument_post: {content: add_contribution(argument_post.parent, argument_post)} ), 
+		       		  									method: :put  %>
+	       		  <% end %>
        		  </div>
           </small>
         <% end %>
