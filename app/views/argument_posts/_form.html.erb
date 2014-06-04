@@ -2,7 +2,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :content %>
+    <% if params[:type] == "CorrectionPost" %>
+      <%= f.input :content, input_html: { value: ArgumentPost.find(params[:parent_id]).content } %>
+    <% else %>
+      <%= f.input :content %>
+    <% end %>
     <%= f.hidden_field :debate_id, value: params[:debate_id] %>
     <%= f.hidden_field :position, value: params[:position] %>
     <%= f.hidden_field :type, value: params[:type] %>

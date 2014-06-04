@@ -175,6 +175,19 @@ describe "Argument Post Pages" do
       end 
     end
   end
+  describe "Reply as Correction to an Argument Post" do
+    let(:submit)  { "Post" }
+    let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }
+    before do
+      sign_in user
+      visit debate_path(debate)
+      click_link "Correction"
+    end
+
+    it { should have_content "Post a Correction" }
+    it { should have_content affirmative_post.content }
+    
+  end
 end
 
 
