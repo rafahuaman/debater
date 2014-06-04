@@ -202,7 +202,30 @@ describe "Argument Post Pages" do
       end
 
       describe "Accept Correction link" do
-        it { should have_link("accept correction")}
+        let(:correction_link) { "accept correction" }
+        it { should have_link(correction_link)}
+
+        describe "Visibiility" do
+          describe "should not show link if signed out" do
+            before do
+              click_link "Sign out" 
+              visit debate_path(debate)
+            end
+
+            it { should_not have_link(correction_link)}
+          end
+
+          describe "should not show link if signed in user does not own parent argument post" do
+            let(:other_user) { FactoryGirl.create(:user)  }
+
+            before do
+              sign_in other_user
+              visit debate_path(debate)
+            end
+
+            it { should_not have_link(correction_link)}    
+          end
+        end
         
       end
     end
