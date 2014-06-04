@@ -177,7 +177,7 @@ describe "Argument Post Pages" do
   end
   describe "Reply as Correction to an Argument Post" do
     let(:submit)  { "Post" }
-    let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }
+    let!(:incorrect_post) { FactoryGirl.create(:original_post, debate: debate, user: user, content: "Incorrect information") }
     before do
       sign_in user
       visit debate_path(debate)
@@ -185,7 +185,22 @@ describe "Argument Post Pages" do
     end
 
     it { should have_content "Post a Correction" }
-    it { should have_content affirmative_post.content }
+    it { should have_content incorrect_post.content }
+    
+    describe "Should create a nested argument post" do
+      let(:correct_content) { "Corrected information" }
+      before do 
+        fill_in "Content", with: correct_content
+        click_button submit
+      end
+
+      it { should have_debate_show_data(debate) }
+      it { should have_content(correct_content) }
+
+      it "should be nested " do
+        expect(find("div.argument_post##{incorrect_post.id}")).to have_content(correct_content)
+      end
+    end
     
   end
 end
