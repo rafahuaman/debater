@@ -226,10 +226,22 @@ describe "Argument Post Pages" do
             it { should_not have_link(correction_link)}    
           end
         end
-        
+
+        describe "Functionality" do
+          let!(:correction_post) { ArgumentPost.last }
+
+          describe "Clik link " do
+            before do
+              click_link correction_link
+            end
+
+            it "should concatenate child post to parent" do
+              expect(find("div.argument_post##{incorrect_post.id}").text).to match(/(#{correction_post.content}Corrected by: #{correction_post.user.name})/)
+            end
+          end
+        end
       end
     end
-    
   end
 end
 

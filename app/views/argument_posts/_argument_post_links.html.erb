@@ -26,7 +26,7 @@
 							<% when "CorrectionPost" %>
 								<li><%= link_to "accept correction", 
 		       		  									argument_post_path(argument_post.parent, 
-		       		  									argument_post: {content: add_contribution(argument_post.parent, argument_post)} ), 
+		       		  									argument_post: {content: add_correction(argument_post.parent, argument_post)} ), 
 		       		  									method: :put  %>
 	       		  <% end %>
        		  </div>
