@@ -22,8 +22,22 @@ module ArgumentPostsHelper
 	end
 
 	def add_correction(parent_post, correction)
-		corrected_conted = "#{correction.content}"
-		credit_text = "Corrected by: #{correction.user.name}"
-		new_content = "#{corrected_conted}\n#{credit_text}"
+		if has_correction_credit(parent_post)
+			orginal_credit_string = parent_post.content[/(Corrected by: )[\w+, ]+/]
+			new_credit_string = orginal_credit_string + ", #{correction.user.name}"
+			if has_correction_credit(correction)
+				new_content = correction.content.gsub(/(Corrected by: )[\w+, ]+/,new_credit_string) 
+			else
+				new_content = "#{correction.content}\n#{new_credit_string}" 
+			end
+		else
+			corrected_conted = "#{correction.content}"
+			credit_text = "Corrected by: #{correction.user.name}"
+			new_content = "#{corrected_conted}\n#{credit_text}"
+		end
+	end
+
+	def has_correction_credit(post)
+		post.content.index("Corrected by: ")
 	end
 end

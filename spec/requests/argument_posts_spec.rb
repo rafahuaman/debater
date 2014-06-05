@@ -235,8 +235,23 @@ describe "Argument Post Pages" do
               click_link correction_link
             end
 
-            it "should concatenate child post to parent" do
+            it "should replace parent post with child post " do
               expect(find("div.argument_post##{incorrect_post.id}").text).to match(/(#{correction_post.content}Corrected by: #{correction_post.user.name})/)
+            end
+
+            describe "Multiple Corrections" do
+              let(:additional_correction_text) { "Better information" }
+              let!(:additional_correction) { FactoryGirl.create(:correction_post, debate: debate, user: user, parent: incorrect_post, content: additional_correction_text) }
+              before do 
+                visit debate_path(debate)
+                within("div.argument_post##{additional_correction.id}") do
+                  click_link correction_link
+                end
+              end
+
+              it "display a list of correction authors " do
+                expect(find("div.argument_post##{incorrect_post.id}").text).to match(/(#{additional_correction_text}Corrected by: #{correction_post.user.name}, #{additional_correction.user.name})/)
+              end
             end
           end
         end
