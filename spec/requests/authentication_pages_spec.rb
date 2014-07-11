@@ -137,6 +137,21 @@ describe "Authentication" do
           end
       end
 
+      describe "Chamber" do
+
+        describe "when visiting the create page" do
+            before { visit new_chamber_path }
+            it { should have_sign_in_page_appearance }
+        end
+
+        describe "when visiting the edit page" do
+            let(:chamber) { FactoryGirl.create(:chamber) }
+            before { visit edit_chamber_path(chamber) }
+            
+            it { should have_sign_in_page_appearance }
+          end
+      end
+
       describe "when attempting to visit a protected page" do
         before do
           visit new_debate_path

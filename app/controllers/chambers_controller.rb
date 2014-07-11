@@ -1,4 +1,5 @@
 class ChambersController < ApplicationController
+  before_action :check_signed_in_user, only: [:new, :edit, :update, :create, :destroy]
   before_action :set_chamber, only: [:show, :edit, :update, :destroy]
 
   # GET /chambers
