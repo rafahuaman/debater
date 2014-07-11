@@ -127,6 +127,14 @@ describe "Authentication" do
             before { visit new_argument_post_path }
             it { should have_sign_in_page_appearance }
         end
+
+        describe "when visiting the edit page" do
+            let(:debate) { FactoryGirl.create(:debate) }
+            let(:argument_post) { FactoryGirl.create(:original_post, debate: debate, user: User.find_by(id: debate.user_id)) }
+            before { visit edit_debate_path(argument_post) }
+            
+            it { should have_sign_in_page_appearance }
+          end
       end
 
       describe "when attempting to visit a protected page" do
@@ -199,6 +207,26 @@ describe "Authentication" do
         
         describe "submitting a DELETE request to the #delete action" do
           before { delete debate_path(debate) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+      end
+
+      describe "ArgumentPost Controller" do
+        let(:debate) { FactoryGirl.create(:debate, user: wrong_user) }
+        let(:argument_post) { FactoryGirl.create(:original_post, debate: debate,  user: wrong_user) }
+        
+        describe "submitting a GET request to the #edit action" do
+          before { get edit_argument_post_path(argument_post) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+        
+        describe "submitting a PATCH request to the #update action" do
+          before { patch argument_post_path(argument_post) }
+          it { should respond_by_redirecting_to_root_page }
+        end
+        
+        describe "submitting a DELETE request to the #delete action" do
+          before { delete argument_post_path(argument_post) }
           it { should respond_by_redirecting_to_root_page }
         end
       end

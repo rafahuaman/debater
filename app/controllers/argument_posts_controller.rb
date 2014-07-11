@@ -1,5 +1,6 @@
 class ArgumentPostsController < ApplicationController
   before_action :check_signed_in_user, only: [:new, :edit, :update, :create, :destroy]
+  before_action :check_correct_user, only: [:edit, :update, :destroy] 
   before_action :set_argument_post, only: [:show, :edit, :update, :destroy]
 
   # GET /argument_posts
