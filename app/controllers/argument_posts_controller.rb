@@ -1,4 +1,5 @@
 class ArgumentPostsController < ApplicationController
+  before_action :check_signed_in_user, only: [:new, :edit, :update, :create, :destroy]
   before_action :set_argument_post, only: [:show, :edit, :update, :destroy]
 
   # GET /argument_posts
@@ -70,5 +71,10 @@ class ArgumentPostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def argument_post_params
       params.require(:argument_post).permit(:content, :user_id, :debate_id, :type, :position, :parent_id)
+    end
+
+    def check_correct_user
+      set_argument_post
+      redirect_incorrect_users_to_root(@argument_post.user_id)
     end
 end

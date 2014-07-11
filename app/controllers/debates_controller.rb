@@ -51,7 +51,6 @@ class DebatesController < ApplicationController
   
     def check_correct_user
       set_debate
-      correct_user = User.find_by(id: @debate.user_id)
-      redirect_to root_url unless current_user?(correct_user)
+      redirect_incorrect_users_to_root(@debate.user_id)
     end
 end

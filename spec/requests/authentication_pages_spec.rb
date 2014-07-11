@@ -121,6 +121,14 @@ describe "Authentication" do
         end
       end
 
+      describe "ArgumentPost" do
+
+        describe "when visiting the create page" do
+            before { visit new_argument_post_path }
+            it { should have_sign_in_page_appearance }
+        end
+      end
+
       describe "when attempting to visit a protected page" do
         before do
           visit new_debate_path

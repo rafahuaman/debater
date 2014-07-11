@@ -30,6 +30,11 @@ module SessionsHelper
     end
   end
 
+  def redirect_incorrect_users_to_root(user_id)
+    correct_user = User.find_by(id: user_id)
+    redirect_to root_url unless current_user?(correct_user)
+  end
+
   #Generate new remember token in the db in case the cookie has been stolen
   def sign_out
     new_remember_token = User.new_remember_token
