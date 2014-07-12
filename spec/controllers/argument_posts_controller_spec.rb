@@ -51,6 +51,10 @@ describe ArgumentPostsController do
   end
 
   describe "GET new" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "assigns a new argument_post as @argument_post" do
       get :new, {}, valid_session
       assigns(:argument_post).should be_a_new(ArgumentPost)
@@ -58,6 +62,10 @@ describe ArgumentPostsController do
   end
 
   describe "GET edit" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+    
     it "assigns the requested argument_post as @argument_post" do
       argument_post = ArgumentPost.create! valid_attributes
       get :edit, {:id => argument_post.to_param}, valid_session
@@ -69,6 +77,7 @@ describe ArgumentPostsController do
     before do 
       sign_in user, no_capybara: true
     end
+
     describe "with valid params" do
       it "creates a new ArgumentPost" do
         expect {
@@ -106,6 +115,10 @@ describe ArgumentPostsController do
   end
 
   describe "PUT update" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     describe "with valid params" do
       it "updates the requested argument_post" do
         argument_post = ArgumentPost.create! valid_attributes
@@ -150,6 +163,10 @@ describe ArgumentPostsController do
   end
 
   describe "DELETE destroy" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "destroys the requested argument_post" do
       argument_post = ArgumentPost.create! valid_attributes
       expect {

@@ -23,6 +23,7 @@ describe Chamber do
   it { should respond_to(:name) }
   it { should respond_to(:description) }
   it { should respond_to(:debates) }
+  it { should respond_to(:user) }
   
   it { should be_valid }
   

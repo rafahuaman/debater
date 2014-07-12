@@ -29,6 +29,7 @@ describe ChambersController do
   # in order to pass any filters (e.g. authentication) defined in
   # ChambersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
+  let(:user) { FactoryGirl.create(:user) }
 
   describe "GET index" do
     it "assigns all chambers as @chambers" do
@@ -47,6 +48,10 @@ describe ChambersController do
   end
 
   describe "GET new" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "assigns a new chamber as @chamber" do
       get :new, {}, valid_session
       assigns(:chamber).should be_a_new(Chamber)
@@ -54,6 +59,10 @@ describe ChambersController do
   end
 
   describe "GET edit" do
+    before do 
+      sign_in user, no_capybara: true
+    end
+
     it "assigns the requested chamber as @chamber" do
       chamber = Chamber.create! valid_attributes
       get :edit, {:id => chamber.to_param}, valid_session
@@ -63,6 +72,10 @@ describe ChambersController do
 
   describe "POST create" do
     describe "with valid params" do
+      before do 
+        sign_in user, no_capybara: true
+      end
+
       it "creates a new Chamber" do
         expect {
           post :create, {:chamber => valid_attributes}, valid_session
@@ -82,6 +95,8 @@ describe ChambersController do
     end
 
     describe "with invalid params" do
+      before { sign_in user, no_capybara: true}
+
       it "assigns a newly created but unsaved chamber as @chamber" do
         # Trigger the behavior that occurs when invalid params are submitted
         Chamber.any_instance.stub(:save).and_return(false)
@@ -100,6 +115,8 @@ describe ChambersController do
 
   describe "PUT update" do
     describe "with valid params" do
+      before { sign_in user, no_capybara: true}
+
       it "updates the requested chamber" do
         chamber = Chamber.create! valid_attributes
         # Assuming there are no other chambers in the database, this
@@ -124,6 +141,7 @@ describe ChambersController do
     end
 
     describe "with invalid params" do
+      before { sign_in user, no_capybara: true}
       it "assigns the chamber as @chamber" do
         chamber = Chamber.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
@@ -143,6 +161,8 @@ describe ChambersController do
   end
 
   describe "DELETE destroy" do
+    before { sign_in user, no_capybara: true}
+
     it "destroys the requested chamber" do
       chamber = Chamber.create! valid_attributes
       expect {
