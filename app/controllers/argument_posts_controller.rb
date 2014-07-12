@@ -69,9 +69,18 @@ class ArgumentPostsController < ApplicationController
       @argument_post = ArgumentPost.find(params[:id])
     end
 
+    def type
+      if  ArgumentPost.types.include?(params[:type])
+        params[:type] 
+      else
+        "ArgumentPost"
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def argument_post_params
-      params.require(:argument_post).permit(:content, :user_id, :debate_id, :type, :position, :parent_id)
+      params.require(type.underscore.to_sym).permit(:content, :user_id, :debate_id, :type, :position, :parent_id)
+      #params.require(:argument_post).permit(:content, :user_id, :debate_id, :type, :position, :parent_id)
     end
 
     def check_correct_user

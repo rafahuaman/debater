@@ -110,6 +110,22 @@ describe "Argument Post Pages" do
     end
   end
 
+  describe "Edit an argument post" do
+    let(:submit)  { "Post" }
+    let(:original_content)  { "Orignal Post Content" }
+    let(:edited_content)  { "Edited Post Content" }
+    let!(:argument_post) { FactoryGirl.create(:original_post, content: original_content, debate: debate, user: user) }
+    before do
+      sign_in user
+      visit debate_path(debate)
+      click_link "Edit"
+      fill_in "Content", with: edited_content
+      click_button submit
+    end
+
+    it { should have_content(edited_content) }
+  end
+
   describe "Reply as Contribution to an Argument Post" do
     let(:submit)  { "Post" }
     let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }

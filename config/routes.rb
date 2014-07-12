@@ -4,10 +4,10 @@ Debater::Application.routes.draw do
 
   resources :argument_posts
 
-  resources :contribution_post, :controller => "argument_post", :type => "ContributionPost"
-  resources :original_posts, :controller => "argument_post", :type => "OriginalPost"
-  resources :correction_post, :controller => "argument_post", :type => "CorrectionPost"
-  resources :counter_argument_post, :controller => "argument_post", :type => "CounterArgumentPost"
+  resources :contribution_posts, :controller => "argument_posts", :type => "ContributionPost"
+  resources :original_posts, :controller => "argument_posts", :type => "OriginalPost"
+  resources :correction_posts, :controller => "argument_posts", :type => "CorrectionPost"
+  resources :counter_argument_posts, :controller => "argument_posts", :type => "CounterArgumentPost"
 
   resources :chambers
 

@@ -9,6 +9,10 @@ class ArgumentPost < ActiveRecord::Base
   validates :position, inclusion: { in: %w(affirmative negative),
     message: "%{value} is not a valid Position" }
   validates :content, length: { maximum: 5000 }
+
+  def self.types
+    ["OriginalPost","ContributionPost","CorrectionPost","CounterArgumentPost"]
+  end
 end
 
 class OriginalPost < ArgumentPost

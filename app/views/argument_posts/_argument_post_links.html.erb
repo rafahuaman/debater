@@ -1,17 +1,23 @@
 				<small>Replies:
 		      <div class="inline-list argument_post_links" >
 		      	<li><%= link_to "Contribution", 
-						      	new_argument_post_path(debate_id: argument_post.debate_id, 
-						    	  	position: argument_post.position, 
-						      		type: "ContributionPost",
-						      		parent_id: argument_post.id) %></li>
+							      	new_argument_post_path(debate_id: argument_post.debate_id, 
+							    	  	position: argument_post.position, 
+							      		type: "ContributionPost",
+							      		parent_id: argument_post.id) %></li>
 	  				<li><%= link_to "Correction", 
-						      	new_argument_post_path(debate_id: argument_post.debate_id, 
-						    	  	position: argument_post.position, 
-						      		type: "CorrectionPost",
-						      		parent_id: argument_post.id) %></li>
+							      	new_argument_post_path(debate_id: argument_post.debate_id, 
+							    	  	position: argument_post.position, 
+							      		type: "CorrectionPost",
+							      		parent_id: argument_post.id) %></li>
 	  				<li><a href="#">Counterargument</a></li>
-	  				<li><%= link_to 'Edit', edit_argument_post_path(argument_post) %></li>  				
+	  				<li><%= link_to 'Edit', 
+	  									edit_argument_post_path(argument_post, 
+	  										debate_id: argument_post.debate_id,
+	  										position: argument_post.position,
+	  										type: argument_post.type,
+	  										parent_id: argument_post.parent_id
+	  									) %></li>  				
 		      </div>
 	      </small>
 	    	<% if signed_in? and current_user?(get_parent_post_user(argument_post)) %>
