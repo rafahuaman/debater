@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Chamber do
+  let(:user) { FactoryGirl.create(:user) }
+
   before do 
     @chamber = Chamber.new(name: "Example",
       description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
@@ -15,7 +17,8 @@ describe Chamber do
       ultrices non est. Mauris ornare mi vel mi euismod euismod. Nam molestie 
       felis vitae dolor sollicitudin rutrum. Morbi commodo a ligula sit amet 
       malesuada. Cum sociis natoque penatibus et magnis dis parturient montes, 
-      nascetur ridiculus mus.")
+      nascetur ridiculus mus.", 
+      user: user)
   end
   
   subject { @chamber }
@@ -59,4 +62,10 @@ describe Chamber do
     end
   end
 
+  describe "user" do
+    describe  "when it is missing" do
+      before { @chamber.user = nil }
+      it { should_not be_valid }
+    end
+  end
 end

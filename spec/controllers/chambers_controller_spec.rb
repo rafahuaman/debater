@@ -23,13 +23,14 @@ describe ChambersController do
   # This should return the minimal set of attributes required to create a valid
   # Chamber. As you add validations to Chamber, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { name: "MyString", description: "My Description" } }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:valid_attributes) { { name: "MyString", description: "My Description" , user: user} }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ChambersController. Be sure to keep this updated too.
   let(:valid_session) { {} }
-  let(:user) { FactoryGirl.create(:user) }
+  
 
   describe "GET index" do
     it "assigns all chambers as @chambers" do

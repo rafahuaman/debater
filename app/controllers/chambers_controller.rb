@@ -26,7 +26,7 @@ class ChambersController < ApplicationController
   # POST /chambers
   # POST /chambers.json
   def create
-    @chamber = Chamber.new(chamber_params)
+    @chamber = current_user.chambers.build(chamber_params)
 
     respond_to do |format|
       if @chamber.save

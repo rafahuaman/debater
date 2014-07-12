@@ -9,6 +9,7 @@ FactoryGirl.define do
   factory :chamber do
     sequence(:name) { |n| "Chamber #{n}" }
     description "Chamber Description"
+    user
   end
 
   factory :debate do
