@@ -115,15 +115,36 @@ describe "Argument Post Pages" do
     let(:original_content)  { "Orignal Post Content" }
     let(:edited_content)  { "Edited Post Content" }
     let!(:argument_post) { FactoryGirl.create(:original_post, content: original_content, debate: debate, user: user) }
-    before do
-      sign_in user
-      visit debate_path(debate)
-      click_link "Edit"
-      fill_in "Content", with: edited_content
-      click_button submit
+
+    describe "as a valid user" do
+      before do
+        sign_in user
+        visit debate_path(debate)
+      end
+
+      it { should have_link("Edit") }
+
+      describe "should save changes" do
+        before do
+          click_link "Edit"
+          fill_in "Content", with: edited_content
+          click_button submit
+        end
+
+        it { should have_content(edited_content) }
+      end
     end
 
-    it { should have_content(edited_content) }
+    describe "as wrong user" do
+      let(:wrong_user) { FactoryGirl.create(:user, name: "wrong_user" ) }
+      before do 
+        sign_in wrong_user
+        visit debate_path(debate)
+      end
+
+      it { should_not have_link("Edit") }
+    end
+    
   end
 
   describe "Reply as Contribution to an Argument Post" do
