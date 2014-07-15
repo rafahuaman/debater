@@ -42,3 +42,17 @@ $grayMediumLight: #eaeaea;
 .argument_post {
   @include grid-row($behavior: nest-collapse);
 }
+
+.post-grid-spacing > li:last-child  {
+  
+}
+
+.post-grid-spacing {
+  li:first-child {
+    width:105px;
+  }
+  
+  li:last-child {
+    width: 73%;
+  } 
+}
