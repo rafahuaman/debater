@@ -43,16 +43,26 @@ $grayMediumLight: #eaeaea;
   @include grid-row($behavior: nest-collapse);
 }
 
-.post-grid-spacing > li:last-child  {
-  
-}
-
-.post-grid-spacing {
+.debate-grid-spacing {
   li:first-child {
     width:105px;
   }
-  
+
   li:last-child {
     width: 73%;
   } 
+}
+
+.score-grid {
+  text-align: center;  
+  margin-top: 10px;
+}
+
+.vote {
+  a {
+    &:hover {
+      color: #00CED1;
+      background-color: white;
+    }
+  }
 }
