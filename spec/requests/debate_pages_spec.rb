@@ -25,7 +25,7 @@ describe "Debate pages" do
 
        it "should list each debate" do
         Debate.paginate(page: 1).each do |debate|
-          expect(page).to have_selector('td', text: debate.title)
+          expect(page).to have_selector('li h5', text: debate.title)
         end
       end
     end 
