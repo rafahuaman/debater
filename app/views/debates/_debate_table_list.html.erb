@@ -3,12 +3,7 @@
     <div class="large-9 small-12 columns">
       <ul>
         <% @debates.each do |debate| %>
-          <div class="row debate hide-for-small">
-            <div class="small-12 columns">
-              <%= render 'debate_compact', debate: debate %>
-            </div>
-            <hr>
-          </div>
+          <%= render 'debate_card', debate: debate %>
         <% end %>
       </ul>
     </div>
