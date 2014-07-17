@@ -1,8 +1,12 @@
   <div class="row" >
-    <div class="large-6 columns" id="PostToAffirmative">
-      <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "affirmative", type: "OriginalPost") %> class="button expand">Post to the Affirmative</a>
-    </div>
-    <div class="large-6 columns" id="PostToNegative">
-      <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "negative", type: "OriginalPost") %> class="button expand">Post to the Negative</a>
+    <div class="small-12 columns">
+      <ul class="position-post-buttons-grid small-block-grid-2 large-block-grid-2">
+        <li class="position-post-button" id="PostToAffirmative">
+          <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "affirmative", type: "OriginalPost") %> class="button expand">Post to the Affirmative</a>
+        </li>
+        <li class="position-post-button" id="PostToNegative">
+          <a href=<%= new_argument_post_path(debate_id: @debate.id, position: "negative", type: "OriginalPost") %> class="button expand">Post to the Negative</a>
+        </li>
+      </ul>
     </div>
   </div>
