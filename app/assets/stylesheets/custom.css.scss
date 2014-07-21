@@ -44,11 +44,11 @@ $grayMediumLight: #eaeaea;
 }
 
 .debate-grid-spacing {
-  li:first-child {
+  > li:first-child {
     width:105px;
   }
 
-  li:last-child {
+  > li:last-child {
     width: 73%;
   } 
 }

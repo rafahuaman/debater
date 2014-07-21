@@ -13,7 +13,14 @@
           <span class="chamber-name">to <strong><%= link_to "#{debate.chamber.name}", chamber_path(debate.chamber) %></strong></span>
         </p>
         <div class="debate-stats">
-          <span class="replies"><a href=#>replies(#)</a></span>
+          <ul class="inline-list">
+            <li></li>
+            <li><a href=#>replies(#)</a></li>
+            <% if current_user == debate.user %>
+              <li><%= link_to "edit", edit_debate_path(debate) %></li>
+              <li><%= link_to "delete", debate_path(debate), method: :delete, data: { confirm: "You sure?" } %></li>
+            <% end %>
+          </ul>
         </div>
       </li>
     </ul>    
