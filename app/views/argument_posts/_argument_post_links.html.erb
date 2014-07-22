@@ -24,10 +24,10 @@
 		  										parent_id: argument_post.parent_id), class: "tiny button secondary" %></li>  				
 	  				<% end %>
 	  				<% if argument_post.has_counters? %>
-	  					<a href="#" data-dropdown=<%= "drop #{argument_post.id}" %> class="tiny button secondary dropdown">see counterarguments</a><br>
-							<ul id=<%= "drop #{argument_post.id}" %> data-dropdown-content class="f-dropdown">
+	  					<a href="#" data-dropdown=<%= "drop-#{argument_post.id}" %> class="tiny button secondary dropdown">see counterarguments</a><br>
+							<ul id=<%= "drop-#{argument_post.id}" %> data-dropdown-content class="f-dropdown">
 								<% argument_post.disagreeing_children.each_with_index do |child_post, index| %>
-									<li><a href="#"><%= index+1 %></a></li>
+									<li id:=<%= "counter-link-#{child_post.id}" %> ><a href="#"><%= index+1 %></a></li>
 								<% end %>
 							</ul>
 	  				<% end %>

@@ -322,8 +322,14 @@ describe "Argument Post Pages" do
         expect(find("div#affirmative_posts")).not_to have_content(counter)
       end
 
-      describe "find counterarguments dropdown links" do
+      describe "counterarguments dropdown" do
+        let(:last_post) { ArgumentPost.last }
         it { should have_link("see counterarguments") }
+        it { should have_selector("li#counter-link-#{last_post.id}")}
+        
+        #it "should list all counterarguments " do
+         # expect(response).to have_selector("li#counter-link-#{last_post.id}")
+        #end
       end
     end
   end
