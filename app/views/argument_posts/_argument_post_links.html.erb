@@ -1,34 +1,41 @@
-				<small>Replies:
-		      <div class="inline-list argument_post_links" >
+				<small>
+		      <ul class="button-group argument_post_links" >
 		      	<li><%= link_to "Contribution", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.position, 
 							      		type: "ContributionPost",
-							      		parent_id: argument_post.id) %></li>
+							      		parent_id: argument_post.id), class: "tiny button secondary"  %></li>
 	  				<li><%= link_to "Correction", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.position, 
 							      		type: "CorrectionPost",
-							      		parent_id: argument_post.id) %></li>
+							      		parent_id: argument_post.id), class: "tiny button secondary" %></li>
 	  				<li><%= link_to "Counterargument", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
-							    	  	position: get_opposite_position(argument_post.position),
+							    	  	position: argument_post.opposite_position,
 							      		type: "CounterArgumentPost",
-							      		parent_id: argument_post.id) %></li>
+							      		parent_id: argument_post.id), class: "tiny button secondary" %></li>
 	  				<% if signed_in? and current_user?(argument_post.user) %>
 		  				<li><%= link_to 'Edit', 
 		  									edit_argument_post_path(argument_post, 
 		  										debate_id: argument_post.debate_id,
 		  										position: argument_post.position,
 		  										type: argument_post.type,
-		  										parent_id: argument_post.parent_id
-		  									) %></li>  				
+		  										parent_id: argument_post.parent_id), class: "tiny button secondary" %></li>  				
 	  				<% end %>
-		      </div>
+	  				<% if argument_post.has_counters? %>
+	  					<a href="#" data-dropdown=<%= "drop #{argument_post.id}" %> class="tiny button secondary dropdown">see counterarguments</a><br>
+							<ul id=<%= "drop #{argument_post.id}" %> data-dropdown-content class="f-dropdown">
+								<% argument_post.disagreeing_children.each_with_index do |child_post, index| %>
+									<li><a href="#"><%= index+1 %></a></li>
+								<% end %>
+							</ul>
+	  				<% end %>
+		      </ul>
 	      </small>
 	    	<% if signed_in? and current_user?(get_parent_post_user(argument_post)) %>
 	    		<small>Actions:
-	    			<div class="inline-list argument_post_action_links" >
+	    			<ul class="inline-list argument_post_action_links" >
 	    				<% case argument_post.type %>
 	    				<% when "ContributionPost" %>
 	       		  	<li><%= link_to "accept contribution", 
@@ -41,6 +48,6 @@
 		       		  									argument_post: {content: add_correction(argument_post.parent, argument_post)} ), 
 		       		  									method: :put  %>
 	       		  <% end %>
-       		  </div>
+       		  </ul>
           </small>
         <% end %>

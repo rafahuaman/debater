@@ -18,9 +18,21 @@ class ArgumentPost < ActiveRecord::Base
     self.children.where(position: self.position)
   end
 
-  # def disgreeing_children
-  #   self.children.where(position: self.position)
-  # end
+  def disagreeing_children
+    self.children.where(position: self.opposite_position)
+  end
+
+  def opposite_position
+    if self.position == "affirmative" then
+      "negative"
+    else
+      "affirmative"
+    end
+  end
+
+  def has_counters?
+    !self.disagreeing_children.empty?
+  end
 
 end
 

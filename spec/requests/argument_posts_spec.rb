@@ -319,10 +319,11 @@ describe "Argument Post Pages" do
 
       it "should be on the opposite side " do
         expect(find("div#negative_posts")).to have_content(counter)
+        expect(find("div#affirmative_posts")).not_to have_content(counter)
       end
 
-      it "should not be on the same side " do
-        expect(find("div#affirmative_posts")).not_to have_content(counter)
+      describe "find counterarguments dropdown links" do
+        it { should have_link("see counterarguments") }
       end
     end
   end
