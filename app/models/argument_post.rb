@@ -13,6 +13,15 @@ class ArgumentPost < ActiveRecord::Base
   def self.types
     ["OriginalPost","ContributionPost","CorrectionPost","CounterArgumentPost"]
   end
+
+  def agreeing_children
+    self.children.where(position: self.position)
+  end
+
+  # def disgreeing_children
+  #   self.children.where(position: self.position)
+  # end
+
 end
 
 class OriginalPost < ArgumentPost

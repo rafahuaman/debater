@@ -25,8 +25,8 @@ class DebatesController < ApplicationController
   end
   
   def show
-    @affirmative_posts = @debate.argument_posts.where(position: "affirmative", type: "OriginalPost")
-    @negative_posts = @debate.argument_posts.where(position: "negative", type: "OriginalPost")
+    @affirmative_posts = @debate.argument_posts.where(position: "affirmative", type: ["OriginalPost", "CounterArgumentPost"])
+    @negative_posts = @debate.argument_posts.where(position: "negative", type: ["OriginalPost", "CounterArgumentPost"])
   end
   
   def edit

@@ -295,6 +295,37 @@ describe "Argument Post Pages" do
       end
     end
   end
+
+  describe "Reply as a counter argument" do
+    let(:submit)  { "Post" }
+    let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }
+    before do
+      sign_in user
+      visit debate_path(debate)
+      click_link "Counterargument"
+    end
+
+    it { should have_content "Post a Counterargument" }
+
+    describe "Should create an argument post on the opposing side" do
+      let(:counter) { "disagreement" }
+      before do 
+        fill_in "Content", with: counter
+        click_button submit
+      end
+
+      it { should have_debate_show_data(debate) }
+      it { should have_content(counter) }
+
+      it "should be on the opposite side " do
+        expect(find("div#negative_posts")).to have_content(counter)
+      end
+
+      it "should not be on the same side " do
+        expect(find("div#affirmative_posts")).not_to have_content(counter)
+      end
+    end
+  end
 end
 
 

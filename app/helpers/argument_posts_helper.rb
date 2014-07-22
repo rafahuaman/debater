@@ -40,4 +40,12 @@ module ArgumentPostsHelper
 	def has_correction_credit(post)
 		post.content.index("Corrected by: ")
 	end
+
+	def get_opposite_position(position)
+		if position == "affirmative" then
+			"negative"
+		else
+			"affirmative"
+		end
+	end
 end

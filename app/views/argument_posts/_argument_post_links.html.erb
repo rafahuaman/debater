@@ -10,7 +10,11 @@
 							    	  	position: argument_post.position, 
 							      		type: "CorrectionPost",
 							      		parent_id: argument_post.id) %></li>
-	  				<li><a href="#">Counterargument</a></li>
+	  				<li><%= link_to "Counterargument", 
+							      	new_argument_post_path(debate_id: argument_post.debate_id, 
+							    	  	position: get_opposite_position(argument_post.position),
+							      		type: "CounterArgumentPost",
+							      		parent_id: argument_post.id) %></li>
 	  				<% if signed_in? and current_user?(argument_post.user) %>
 		  				<li><%= link_to 'Edit', 
 		  									edit_argument_post_path(argument_post, 
