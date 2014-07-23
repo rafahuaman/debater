@@ -1,22 +1,22 @@
 				<small>
 		      <ul class="button-group argument_post_links" >
-		      	<li><%= link_to "Contribution", 
+		      	<li><%= link_to "contribute", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.position, 
 							      		type: "ContributionPost",
 							      		parent_id: argument_post.id), class: "tiny button secondary"  %></li>
-	  				<li><%= link_to "Correction", 
+	  				<li><%= link_to "rectify", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.position, 
 							      		type: "CorrectionPost",
 							      		parent_id: argument_post.id), class: "tiny button secondary" %></li>
-	  				<li><%= link_to "Counterargument", 
+	  				<li><%= link_to "counter", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.opposite_position,
 							      		type: "CounterArgumentPost",
 							      		parent_id: argument_post.id), class: "tiny button secondary" %></li>
 	  				<% if signed_in? and current_user?(argument_post.user) %>
-		  				<li><%= link_to 'Edit', 
+		  				<li><%= link_to 'edit', 
 		  									edit_argument_post_path(argument_post, 
 		  										debate_id: argument_post.debate_id,
 		  										position: argument_post.position,
@@ -24,14 +24,14 @@
 		  										parent_id: argument_post.parent_id), class: "tiny button secondary" %></li>  				
 	  				<% end %>
 	  				<% if argument_post.has_counters? %>
-	  					<a href="#" data-dropdown=<%= "drop-#{argument_post.id}" %> class="tiny button secondary dropdown">see counterarguments</a><br>
+	  					<a href="#" data-dropdown=<%= "drop-#{argument_post.id}" %> class="tiny button secondary">see counterarguments &raquo</a><br>
 							<ul id=<%= "drop-#{argument_post.id}" %> data-dropdown-content class="f-dropdown">
 								<% argument_post.disagreeing_children.each_with_index do |child_post, index| %>
-									<li id:=<%= "counter-link-#{child_post.id}" %> ><a href="#"><%= index+1 %></a></li>
+									<li id=<%= "counter-link-#{child_post.id}" %> ><a href="#"><%= index + 1 %></a></li>
 								<% end %>
 							</ul>
 	  				<% end %>
-		      </ul>
+		      </ul> 
 	      </small>
 	    	<% if signed_in? and current_user?(get_parent_post_user(argument_post)) %>
 	    		<small>Actions:

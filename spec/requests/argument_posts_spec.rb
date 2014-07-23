@@ -63,9 +63,9 @@ describe "Argument Post Pages" do
             expect(find('div#affirmative_posts')).to have_content(user.name)
           end
 
-          it { should have_link("Contribution") }
-          it { should have_link("Correction") }
-          it { should have_link("Counterargument") }
+          it { should have_link("contribute") }
+          it { should have_link("rectify") }
+          it { should have_link("counter") }
         end      
       end
 
@@ -111,6 +111,7 @@ describe "Argument Post Pages" do
   end
 
   describe "Edit an argument post" do
+    let(:edit) { "edit"}
     let(:submit)  { "Post" }
     let(:original_content)  { "Orignal Post Content" }
     let(:edited_content)  { "Edited Post Content" }
@@ -122,11 +123,11 @@ describe "Argument Post Pages" do
         visit debate_path(debate)
       end
 
-      it { should have_link("Edit") }
+      it { should have_link(edit) }
 
       describe "should save changes" do
         before do
-          click_link "Edit"
+          click_link edit
           fill_in "Content", with: edited_content
           click_button submit
         end
@@ -142,18 +143,19 @@ describe "Argument Post Pages" do
         visit debate_path(debate)
       end
 
-      it { should_not have_link("Edit") }
+      it { should_not have_link(edit) }
     end
     
   end
 
   describe "Reply as Contribution to an Argument Post" do
+    let(:contribute) { "contribute"}
     let(:submit)  { "Post" }
     let!(:affirmative_post) { FactoryGirl.create(:original_post, debate: debate, user: user) }
     before do
       sign_in user
       visit debate_path(debate)
-      click_link "Contribution"
+      click_link contribute
     end
 
     it { should have_content "Post a Contribution" }
@@ -213,12 +215,13 @@ describe "Argument Post Pages" do
     end
   end
   describe "Reply as Correction to an Argument Post" do
+    let(:add_correction) { "rectify" }
     let(:submit)  { "Post" }
     let!(:incorrect_post) { FactoryGirl.create(:original_post, debate: debate, user: user, content: "Incorrect information") }
     before do
       sign_in user
       visit debate_path(debate)
-      click_link "Correction"
+      click_link add_correction
     end
 
     it { should have_content "Post a Correction" }
@@ -302,7 +305,7 @@ describe "Argument Post Pages" do
     before do
       sign_in user
       visit debate_path(debate)
-      click_link "Counterargument"
+      click_link "counter"
     end
 
     it { should have_content "Post a Counterargument" }
@@ -323,13 +326,12 @@ describe "Argument Post Pages" do
       end
 
       describe "counterarguments dropdown" do
-        let(:last_post) { ArgumentPost.last }
+        let(:last_post) { CounterArgumentPost.last }
         it { should have_link("see counterarguments") }
-        it { should have_selector("li#counter-link-#{last_post.id}")}
         
-        #it "should list all counterarguments " do
-         # expect(response).to have_selector("li#counter-link-#{last_post.id}")
-        #end
+        it "should list all counterarguments " do
+          expect(find("li#counter-link-#{last_post.id}")).to have_content("1")
+        end
       end
     end
   end
