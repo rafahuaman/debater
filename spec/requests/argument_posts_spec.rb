@@ -170,7 +170,7 @@ describe "Argument Post Pages" do
       it { should have_content("Valid Contribution") }
 
       it "should be nested " do
-        expect(find("div.argument_post##{affirmative_post.id}")).to have_content('Valid Contribution')
+        expect(find("div.argument-post##{affirmative_post.id}")).to have_content('Valid Contribution')
       end
 
       describe "Accept contribution link" do
@@ -207,7 +207,7 @@ describe "Argument Post Pages" do
             end
 
             it "should concatenate child post to parent" do
-              expect(find("div.argument_post##{affirmative_post.id}").text).to match(/(#{affirmative_post.content}#{contribution_post.user.name}: #{contribution_post.content})/)
+              expect(find("div.argument-post##{affirmative_post.id}").text).to match(/(#{affirmative_post.content}#{contribution_post.user.name}: #{contribution_post.content})/)
             end
           end
         end
@@ -238,7 +238,7 @@ describe "Argument Post Pages" do
       it { should have_content(correct_content) }
 
       it "should be nested " do
-        expect(find("div.argument_post##{incorrect_post.id}")).to have_content(correct_content)
+        expect(find("div.argument-post##{incorrect_post.id}")).to have_content(correct_content)
       end
 
       describe "Accept Correction link" do
@@ -276,7 +276,7 @@ describe "Argument Post Pages" do
             end
 
             it "should replace parent post with child post " do
-              expect(find("div.argument_post##{incorrect_post.id}").text).to match(/(#{correction_post.content}Corrected by: #{correction_post.user.name})/)
+              expect(find("div.argument-post##{incorrect_post.id}").text).to match(/(#{correction_post.content}Corrected by: #{correction_post.user.name})/)
             end
 
             describe "Multiple Corrections" do
@@ -284,13 +284,13 @@ describe "Argument Post Pages" do
               let!(:additional_correction) { FactoryGirl.create(:correction_post, debate: debate, user: user, parent: incorrect_post, content: additional_correction_text) }
               before do 
                 visit debate_path(debate)
-                within("div.argument_post##{additional_correction.id}") do
+                within("div.argument-post##{additional_correction.id}") do
                   click_link correction_link
                 end
               end
 
               it "display a list of correction authors " do
-                expect(find("div.argument_post##{incorrect_post.id}").text).to match(/(#{additional_correction_text}Corrected by: #{correction_post.user.name}, #{additional_correction.user.name})/)
+                expect(find("div.argument-post##{incorrect_post.id}").text).to match(/(#{additional_correction_text}Corrected by: #{correction_post.user.name}, #{additional_correction.user.name})/)
               end
             end
           end
@@ -330,7 +330,7 @@ describe "Argument Post Pages" do
         it { should have_link("see counterarguments") }
         
         it "should list all counterarguments " do
-          expect(find("li#counter-link-#{last_post.id}")).to have_content("1")
+          expect(find("li#counter-ref-link-#{last_post.id}")).to have_content("1")
         end
       end
     end

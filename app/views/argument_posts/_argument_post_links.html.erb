@@ -1,5 +1,5 @@
 				<small>
-		      <ul class="button-group argument_post_links" >
+		      <ul class="button-group argument-post-links" >
 		      	<li><%= link_to "contribute", 
 							      	new_argument_post_path(debate_id: argument_post.debate_id, 
 							    	  	position: argument_post.position, 
@@ -27,7 +27,7 @@
 	  					<a href="#" data-dropdown=<%= "drop-#{argument_post.id}" %> class="tiny button secondary">see counterarguments &raquo</a><br>
 							<ul id=<%= "drop-#{argument_post.id}" %> data-dropdown-content class="f-dropdown">
 								<% argument_post.disagreeing_children.each_with_index do |child_post, index| %>
-									<li id=<%= "counter-link-#{child_post.id}" %> ><a href="#"><%= index + 1 %></a></li>
+									<li id=<%= "counter-ref-link-#{child_post.id}" %> ><a class="counter-ref-link" rel=<%= ".argument-post##{child_post.id}" %>><%= index + 1 %></a></li>
 								<% end %>
 							</ul>
 	  				<% end %>

@@ -17,3 +17,10 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+
+$('.counter-ref-link').click(function(e){
+  e.preventDefault();
+  var targetElement = $(this).attr('rel');
+  $(document).scrollTop( $(targetElement).offset().top );   
+});

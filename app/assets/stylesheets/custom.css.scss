@@ -39,7 +39,7 @@ $grayMediumLight: #eaeaea;
    max-width: initial;
 }
 
-.argument_post {
+.argument-post {
   @include grid-row($behavior: nest-collapse);
 }
 
@@ -71,7 +71,7 @@ $grayMediumLight: #eaeaea;
   padding: 30px; 
 }
 
-ul.argument_post_links {
+ul.argument-post-links {
   .tiny {
     padding-top: 0.2rem;
     padding-right: .25rem;
