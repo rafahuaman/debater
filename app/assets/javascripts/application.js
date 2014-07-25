@@ -24,5 +24,5 @@ $('.counter-ref-link').click(function(e){
   var targetElement = $(this).attr('rel');
   $(document).scrollTop( $(targetElement).offset().top );
   $(targetElement).animate({ opacity: 0.2 }, 800, 'linear')
-                  .animate({ opacity: 1 }, 800, 'linear')
+                  .animate({ opacity: 1 }, 800, 'linear');
 });
