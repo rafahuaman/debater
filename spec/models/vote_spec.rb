@@ -19,9 +19,52 @@ describe Vote do
   it { should respond_to(:user) }
   it { should respond_to(:value) }
   its(:user) { should eq user }
-  its(:user) { should eq user }
 
   it { should be_valid }
+
+  describe "when user is missing" do 
+      before { @DebateVote.user = nil }
+      it { should_not be_valid } 
+  end
+
+  describe "type" do
+    describe "when type is missing" do 
+      before { @DebateVote.type = nil }
+      it { should_not be_valid } 
+    end
+
+    describe "when it is invalid" do    
+      before { @DebateVote.type = "Invalid" }
+      it { should_not be_valid } 
+    end
+  end
+  
+
+  describe "when subject_id is missing" do 
+      before { @DebateVote.subject_id = nil }
+      it { should_not be_valid } 
+  end 
+
+  describe "value" do
+    describe "when value is missing" do 
+      before { @DebateVote.value = nil }
+      it { should_not be_valid } 
+    end
+
+    describe "should only have 1 and -1 values" do
+      before { @DebateVote.value = 2 }
+      it { should_not be_valid } 
+    end
+  end
+
+  describe "User can only vote once on any subject" do
+    before do
+      vote_copy = @DebateVote.dup
+      vote_copy.value = -1
+      vote_copy.save
+    end 
+    it { should_not be_valid }
+  end
   
   describe "DebateVote" do
     it { should respond_to(:debate) }
