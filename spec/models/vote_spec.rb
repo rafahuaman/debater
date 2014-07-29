@@ -6,10 +6,10 @@ describe Vote do
   let(:original_post) { FactoryGirl.create(:original_post, user: user, debate: debate) }
   
   before do
-    @DebateVote = Vote.new(type: "DebateVote", 
-                      subject_id: debate.id, value: 1, user: user)
-    @ArgumentVote = Vote.new(type: "ArgumentVote", 
-                      subject_id: original_post.id, value: 1, user: user)
+    @DebateVote = user.votes.build(type: "DebateVote", 
+                      subject_id: debate.id, value: 1)
+    @ArgumentVote = user.votes.build(type: "ArgumentVote", 
+                      subject_id: original_post.id, value: 1)
   end
 
   subject { @DebateVote }
@@ -18,6 +18,7 @@ describe Vote do
   it { should respond_to(:subject_id) }
   it { should respond_to(:user) }
   it { should respond_to(:value) }
+  its(:user) { should eq user }
   its(:user) { should eq user }
 
   it { should be_valid }
