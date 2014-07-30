@@ -35,6 +35,10 @@ class ArgumentPost < ActiveRecord::Base
     !self.disagreeing_children.empty?
   end
 
+  def vote_type
+    "ArgumentVote"
+  end
+
 end
 
 class OriginalPost < ArgumentPost

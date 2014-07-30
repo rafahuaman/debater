@@ -7,4 +7,8 @@ class Debate < ActiveRecord::Base
   validates :user_id, :chamber_id ,:content, :title, :affirmative, :negative , presence: true
   validates :content, length: { maximum: 5000 }
   validates :title, :affirmative, :negative , length: { maximum: 300 }
+
+  def vote_type
+    "DebateVote"
+  end
 end

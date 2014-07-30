@@ -96,9 +96,18 @@ describe User do
       debates.each do |debate|
         expect(Debate.where(id: debate.id)).to be_empty
       end
-    end
-    
+    end  
   end
 
+  describe "voting" do
+    describe "on Debate" do
+      let(:debate) { FactoryGirl.create(:debate) }
+       before do 
+        @user.save 
+        @user.vote!(debate,1)
+      end
+      its(:votes) { should have(1).items }
+    end
+  end
 end
   

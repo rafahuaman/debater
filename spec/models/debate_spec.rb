@@ -21,6 +21,7 @@ describe Debate do
   it { should respond_to :argument_posts }
   it { should respond_to :votes }
   its(:user) { should eq user }
+  its(:vote_type) { should eq "DebateVote" }
   
   it { should be_valid }
   

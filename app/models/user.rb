@@ -15,6 +15,11 @@ class User < ActiveRecord::Base
   def User.hash(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+
+  def vote!(subject, vote_value)
+    self.votes.build(type: subject.vote_type, 
+                      subject_id: subject.id, value: vote_value)
+  end
   
   private
   
