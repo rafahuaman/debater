@@ -2,6 +2,7 @@ class ArgumentPost < ActiveRecord::Base
   belongs_to :user
   belongs_to :debate
   has_many :children, class_name: "ArgumentPost", foreign_key: "parent_id"
+  has_many :votes, class_name: "ArgumentVote", foreign_key: "subject_id"
   belongs_to :parent, class_name: "ArgumentPost"
   validates :user_id, :debate_id, :content, :type, :position, presence: :true
   validates :type, inclusion: { in: %w(OriginalPost ContributionPost CorrectionPost CounterArgumentPost),

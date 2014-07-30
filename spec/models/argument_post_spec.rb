@@ -19,13 +19,14 @@ describe ArgumentPost do
     
     subject { @argument_post }
     
-    it { should respond_to(:content) }
-    it { should respond_to(:user) }
-    it { should respond_to(:debate) }
-    it { should respond_to(:type) }
-    it { should respond_to(:position) }
-    it { should respond_to(:children) }
-    it { should respond_to(:parent) }
+    it { should respond_to :content }
+    it { should respond_to :user }
+    it { should respond_to :debate }
+    it { should respond_to :type }
+    it { should respond_to :position }
+    it { should respond_to :children }
+    it { should respond_to :parent }
+    it { should respond_to :votes }
     its(:user) { should eq user }
     its(:debate) { should eq debate }
     
