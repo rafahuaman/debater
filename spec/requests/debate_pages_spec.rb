@@ -30,6 +30,19 @@ describe "Debate pages" do
       end
     end 
   end
+
+  describe "votes" do
+    let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
+    let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
+    before do
+      user.vote!(debate,1)
+      other_user.vote!(debate,1)
+      downvoter.vote!(debate,-1)
+      visit root_path
+    end
+
+    it { should have_selector('div.debate-score', text: 1) }
+  end
   
   describe "create a new debate" do
     before do 
