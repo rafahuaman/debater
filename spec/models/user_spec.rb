@@ -107,7 +107,12 @@ describe User do
         @user.vote!(debate,1)
       end
       its(:votes) { should have(1).items }
-      its(:votes) { should eq(@user.votes) }
+      its(:votes) { should eq(debate.votes) }
+
+      describe "and unvoting" do
+        before { @user.unvote!(debate) }
+        its(:votes) { should have(0).items }
+      end
     end
 
     describe "on Argument Posts" do
@@ -118,7 +123,9 @@ describe User do
         @user.vote!(argument_post,1)
       end
       its(:votes) { should have(1).items }
-      its(:votes) { should eq(@user.votes) }
+      its(:votes) { should eq(argument_post.votes) }
+      describe "and unvoting" do
+      end
     end
   end
 end

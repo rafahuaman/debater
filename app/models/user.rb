@@ -17,8 +17,13 @@ class User < ActiveRecord::Base
   end
 
   def vote!(subject, vote_value)
-    self.votes.build(type: subject.vote_type, 
+    vote = self.votes.build(type: subject.vote_type, 
                       subject_id: subject.id, value: vote_value)
+    vote.save
+  end
+
+  def unvote!(subject)
+    self.votes.find_by(type: subject.vote_type, subject_id: subject.id).destroy
   end
   
   private
