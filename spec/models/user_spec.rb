@@ -102,7 +102,7 @@ describe User do
   describe "voting" do
     describe "on Debate" do
       let(:debate) { FactoryGirl.create(:debate) }
-       before do 
+      before do 
         @user.save 
         @user.vote!(debate,1)
       end
@@ -118,13 +118,17 @@ describe User do
     describe "on Argument Posts" do
       let(:debate) { FactoryGirl.create(:debate) }
       let(:argument_post) { FactoryGirl.create(:original_post, debate: debate) }
-       before do 
+      before do 
         @user.save 
         @user.vote!(argument_post,1)
       end
+
       its(:votes) { should have(1).items }
       its(:votes) { should eq(argument_post.votes) }
+      
       describe "and unvoting" do
+        before { @user.unvote!(argument_post) }
+        its(:votes) { should have(0).items }
       end
     end
   end
