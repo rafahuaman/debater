@@ -107,6 +107,18 @@ describe User do
         @user.vote!(debate,1)
       end
       its(:votes) { should have(1).items }
+      its(:votes) { should eq(@user.votes) }
+    end
+
+    describe "on Argument Posts" do
+      let(:debate) { FactoryGirl.create(:debate) }
+      let(:argument_post) { FactoryGirl.create(:original_post, debate: debate) }
+       before do 
+        @user.save 
+        @user.vote!(argument_post,1)
+      end
+      its(:votes) { should have(1).items }
+      its(:votes) { should eq(@user.votes) }
     end
   end
 end
