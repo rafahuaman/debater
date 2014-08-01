@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20140728110337) do
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
   create_table "votes", force: true do |t|
-    t.string   "type"
-    t.integer  "subject_id"
+    t.integer  "votable_id"
+    t.string   "votable_type"
     t.integer  "value"
     t.integer  "user_id"
     t.datetime "created_at"

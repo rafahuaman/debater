@@ -16,13 +16,13 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-  def vote!(subject, vote_value)
-    vote = self.votes.create(type: subject.vote_type, 
-                      subject_id: subject.id, value: vote_value)
+  def vote!(votable, vote_value)
+    vote = self.votes.create(votable_type: votable.vote_type, 
+                      votable_id: votable.id, value: vote_value)
   end
 
-  def unvote!(subject)
-    self.votes.find_by(type: subject.vote_type, subject_id: subject.id).destroy
+  def unvote!(votable)
+    self.votes.find_by(votable_type: votable.vote_type, votable_id: votable.id).destroy
   end
   
   private

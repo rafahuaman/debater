@@ -29,7 +29,7 @@ describe ArgumentPost do
     it { should respond_to :votes }
     its(:user) { should eq user }
     its(:debate) { should eq debate }
-    its(:vote_type) { should eq "ArgumentVote" }
+    its(:vote_type) { should eq "ArgumentPost" }
     
     it { should be_valid }
     

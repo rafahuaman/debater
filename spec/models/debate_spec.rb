@@ -20,8 +20,9 @@ describe Debate do
   it { should respond_to :chamber_id }
   it { should respond_to :argument_posts }
   it { should respond_to :votes }
+  it { should respond_to :score }
   its(:user) { should eq user }
-  its(:vote_type) { should eq "DebateVote" }
+  its(:vote_type) { should eq "Debate" }
   
   it { should be_valid }
   
