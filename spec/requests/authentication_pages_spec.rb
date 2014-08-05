@@ -177,12 +177,8 @@ describe "Authentication" do
             it "should render the default (root) page" do
               expect(current_path).to eq(root_path)
             end
-             
            end
-
-          
-        end
-        
+        end  
       end
     end
     

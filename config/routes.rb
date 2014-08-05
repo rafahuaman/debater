@@ -11,6 +11,8 @@ Debater::Application.routes.draw do
 
   resources :chambers
 
+  resources :votes, only: [:create]#, :update :destroy]
+
   match '/signup', to: 'users#new', via: 'get'
   
   resources :users

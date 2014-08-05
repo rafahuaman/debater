@@ -42,6 +42,13 @@ describe "Debate pages" do
     end
 
     it { should have_selector('div.debate-score', text: 1) }
+    describe "upvoting a debate" do
+      it "should increment the debate score" do
+          expect do
+            find(".vote.upvote").find('a').click
+          end.to change(debate, :score).by(1)
+        end
+    end
   end
   
   describe "create a new debate" do
