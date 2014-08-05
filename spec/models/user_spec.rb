@@ -18,6 +18,11 @@ describe User do
   it { should respond_to(:debates) }
   it { should respond_to(:argument_posts) }
   it { should respond_to(:chambers) }
+  it { should respond_to(:vote!) }
+  it { should respond_to(:unvote!) }
+  it { should respond_to(:upvote!) }
+  it { should respond_to(:downvote!) }
+  it { should respond_to(:has_voted_on?) }
   
   
   it { should be_valid }
@@ -108,10 +113,17 @@ describe User do
       end
       its(:votes) { should have(1).items }
       its(:votes) { should eq(debate.votes) }
+      it "should create a voting record" do
+        expect(@user.has_voted_on?(debate)).to be_true
+      end
 
       describe "and unvoting" do
         before { @user.unvote!(debate) }
         its(:votes) { should have(0).items }
+        
+        it "should delete the voting record" do
+          expect(@user.has_voted_on?(debate)).to be_false
+        end
       end
     end
 
@@ -129,6 +141,29 @@ describe User do
       describe "and unvoting" do
         before { @user.unvote!(argument_post) }
         its(:votes) { should have(0).items }
+      end
+    end
+
+    describe "upvoting" do
+      let(:debate) { FactoryGirl.create(:debate) }
+      before do
+        @user.save 
+        @user.upvote!(debate)
+        @upvote = Vote.last
+      end
+      it "should prduce a negative vote" do
+          expect(@upvote.value).to eq(1)
+      end
+
+      describe "and downvoting" do
+        before do
+          @user.save 
+          @user.downvote!(debate)
+          @downvote = Vote.last
+        end
+        it "should prduce a negative vote" do
+          expect(@downvote.value).to eq(-1)
+        end
       end
     end
   end
