@@ -12,8 +12,11 @@ class VotesController < ApplicationController
   end
 
   def destroy
-    #@user = Relationship.find(params[:id]).followed
-    #current_user.unfollow!(@user)
-    #redirect_to @user
+    votable = Vote.find(params[:id]).votable
+    current_user.unvote!(votable)
+    respond_to do |format|
+      format.html { redirect_to votable }
+      format.js
+    end
   end
 end

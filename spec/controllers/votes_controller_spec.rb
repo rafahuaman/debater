@@ -22,22 +22,22 @@ describe VotesController do
     end
   end
 
-  # describe "destroying a relationship with Ajax" do
+  describe "destroying a Vote with Ajax" do
 
-  #   before { user.follow!(other_user) }
-  #   let(:relationship) do
-  #     user.relationships.find_by(followed_id: other_user.id)
-  #   end
+    before { user.upvote!(debate) }
+    let(:vote) do
+      user.votes.find_by(votable_id: debate.id, votable_type: debate.vote_type)
+    end
 
-  #   it "should decrement the Relationship count" do
-  #     expect do
-  #       xhr :delete, :destroy, id: relationship.id
-  #     end.to change(Relationship, :count).by(-1)
-  #   end
+    it "should decrement the Relationship count" do
+      expect do
+        xhr :delete, :destroy, id: vote.id
+      end.to change(Vote, :count).by(-1)
+    end
 
-  #   it "should respond with success" do
-  #     xhr :delete, :destroy, id: relationship.id
-  #     expect(response).to be_success
-  #   end
-  # end
+    it "should respond with success" do
+      xhr :delete, :destroy, id: vote.id
+      expect(response).to be_success
+    end
+  end
 end

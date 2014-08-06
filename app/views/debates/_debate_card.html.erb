@@ -1,10 +1,8 @@
-<div class="row debate">
+<div class="row debate" id=<%= "debate-card-#{debate.id}"  %>>
   <div class="small-12 columns">
     <ul class="debate-grid-spacing small-block-grid-2 large-block-grid-2">
       <li class="score-grid">
-        <div class="vote upvote"><a href=#><i class="fa fa-arrow-up fa-2x"></i></a></div>
-        <div class="debate-score"><%= debate.score %></div>
-        <div class="vote downvote"><a href=#><i class="fa fa-arrow-down fa-2x"></i></a></div>
+        <%= render 'votes/vote_form', debate: debate %>
       </li>
       <li class="debate-description">
         <h5 class="content-title"><%= link_to "#{debate.title}", debate_path(debate) %></h5>

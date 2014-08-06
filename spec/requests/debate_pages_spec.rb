@@ -42,10 +42,19 @@ describe "Debate pages" do
     end
 
     it { should have_selector('div.debate-score', text: 1) }
+
+    describe "buttons" do
+      describe "as non signed-in user" do
+        it { should have_selector('.vote.upvote.unclicked') }
+        it { should have_selector('.vote.downvote.unclicked') }
+      end
+    end
+
+    
     describe "upvoting a debate" do
       it "should increment the debate score" do
           expect do
-            find(".vote.upvote").find('a').click
+            find("#debate-card-#{debate.id}").find(".vote.upvote").find('a').click
           end.to change(debate, :score).by(1)
         end
     end
