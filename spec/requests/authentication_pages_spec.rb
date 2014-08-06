@@ -152,6 +152,22 @@ describe "Authentication" do
           end
       end
 
+      describe "Vote" do
+        describe "Controller" do
+          describe "submitting to the create action" do
+            before { post votes_path }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+
+          describe "submitting to the update action" do
+            before { delete vote_path(1) }
+            specify { expect(response).to redirect_to(signin_path) }
+          end
+
+
+        end
+      end
+
       describe "when attempting to visit a protected page" do
         before do
           visit new_debate_path

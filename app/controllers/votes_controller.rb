@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  #before_action :signed_in_user
+  before_action :check_signed_in_user
 
   def create
     votable_class = params[:vote][:votable_type].constantize
