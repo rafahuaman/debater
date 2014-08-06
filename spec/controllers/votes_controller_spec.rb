@@ -12,12 +12,12 @@ describe VotesController do
 
     it "should increment the Vote count" do
       expect do
-        xhr :post, :create, vote: { user: user, votable_type: debate.vote_type, votable: debate, value: 1 }
+        xhr :post, :create, vote: { user: user, votable_type: debate.vote_type, votable_id: debate.id, value: 1 }
       end.to change(Vote, :count).by(1)
     end
 
     it "should respond with success" do
-      xhr :post, :create, vote: { user: user, votable_type: debate.vote_type, votable: debate, value: 1 }
+      xhr :post, :create, vote: { user: user, votable_type: debate.vote_type, votable_id: debate.id, value: 1 }
       expect(response).to be_success
     end
   end
