@@ -35,6 +35,5 @@ FactoryGirl.define do
   factory :correction_post, class: CorrectionPost, parent: :argument_post do
     type "CorrectionPost"
   end  
-  
-  
+
 end

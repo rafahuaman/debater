@@ -34,29 +34,67 @@ describe "Debate pages" do
   describe "votes" do
     let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
     let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
-    before do
-      user.vote!(debate,1)
-      other_user.vote!(debate,1)
-      downvoter.vote!(debate,-1)
-      visit root_path
-    end
-
-    it { should have_selector('div.debate-score', text: 1) }
 
     describe "buttons" do
-      describe "as non signed-in user" do
-        it { should have_selector('.vote.upvote.unclicked') }
-        it { should have_selector('.vote.downvote.unclicked') }
-      end
-    end
 
-    
-    describe "upvoting a debate" do
-      it "should increment the debate score" do
-          expect do
-            find("#debate-card-#{debate.id}").find(".vote.upvote").find('a').click
-          end.to change(debate, :score).by(1)
+      describe "as non signed-in user" do
+        describe "without votes" do
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
         end
+
+        describe "with votes" do
+          before do
+            sign_in user
+            user.upvote!(debate)
+            click_link 'Sign out' 
+            visit root_path
+          end
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
+        end
+      end
+
+      describe "after signing in" do
+        before do
+          sign_in user
+          visit root_path
+        end
+
+        describe "without votes" do
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
+
+          describe "upvoting a debate" do
+            it "should increment the debate score" do
+              expect do
+                find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
+              end.to change(debate, :score).by(1)
+            end
+          end
+        end
+
+        describe "after voting"
+          before do
+            user.vote!(debate,1)
+            visit root_path
+          end
+
+        it { should have_selector('div.debate-score', text: 1) }
+
+        it { should have_selector('.vote.upvote.clicked') }
+        it { should have_selector('.vote.downvote.unclicked') }
+
+        describe "followed by downvote" do
+          before do 
+            user.downvote!(debate) 
+            visit root_path
+          end
+          it { should have_selector('.vote.upvote.unclicked') }
+          it { should have_selector('.vote.downvote.clicked') }
+          it { should have_selector('div.debate-score', text: -1) }
+        end
+      end
     end
   end
   
