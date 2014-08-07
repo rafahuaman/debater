@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   def vote!(votable, vote_value)
     if self.has_voted_on?(votable) 
-      vote = find_votable(votable)
+      vote = find_vote(votable)
       vote.update(value: vote_value)
     else
     self.votes.create(votable_type: votable.vote_type, 
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def unvote!(votable)
-    find_votable(votable).destroy
+    find_vote(votable).destroy
   end
 
   def upvote!(votable)
@@ -39,16 +39,20 @@ class User < ActiveRecord::Base
   end
 
   def has_voted_on?(votable)
-    find_votable(votable)
+    find_vote(votable)
+  end
+
+  def get_vote(votable)
+    self.votes.find_by(votable: debate, )
+  end
+
+  def find_vote(votable)
+      self.votes.find_by(votable_type: votable.vote_type, votable_id: votable.id)
   end
   
   private
   
     def create_remember_token
       self.remember_token = User.hash(User.new_remember_token)
-    end
-
-    def find_votable(votable)
-      self.votes.find_by(votable_type: votable.vote_type, votable_id: votable.id)
     end
 end

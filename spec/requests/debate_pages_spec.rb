@@ -34,6 +34,7 @@ describe "Debate pages" do
   describe "votes" do
     let(:other_user) { FactoryGirl.create(:user, name: "other user")  }
     let(:downvoter) { FactoryGirl.create(:user, name: "downvoter")  }
+    before { visit root_path }
 
     describe "buttons" do
 

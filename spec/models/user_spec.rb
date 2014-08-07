@@ -23,6 +23,7 @@ describe User do
   it { should respond_to(:upvote!) }
   it { should respond_to(:downvote!) }
   it { should respond_to(:has_voted_on?) }
+  it { should respond_to(:find_votable) }
   
   
   it { should be_valid }
@@ -115,6 +116,10 @@ describe User do
       its(:votes) { should eq(debate.votes) }
       it "should create a voting record" do
         expect(@user.has_voted_on?(debate)).to be_true
+      end
+
+      it "should find the vote" do
+        expect(@user.find_vote(debate)).to eq(debate.votes.last)
       end
 
       describe "and unvoting" do

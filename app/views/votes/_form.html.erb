@@ -1,0 +1,21 @@
+<% if vote_value === 1 %>
+  <% if clicked === true %>
+    <div class="vote upvote clicked">
+  <% else %>
+    <div class="vote upvote unclicked">
+  <% end %>
+<% else %>
+  <% if clicked === true %>
+    <div class="vote downvote clicked">
+  <% else %>
+    <div class="vote downvote unclicked">
+  <% end %>
+<% end %>
+<%= simple_form_for(current_user.votes.build(votable: votable, votable_type: votable.vote_type, value: vote_value)) do |f| %>
+  <% if vote_value === 1 %>
+    <%= f.button :submit, h('<i class="fa fa-arrow-up fa-2x"></i>') %>
+  <% else %>
+    <%= f.button :submit, h('<i class="fa fa-down-up fa-2x"></i>') %>
+  <% end %>
+<% end %>
+</div>
