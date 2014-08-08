@@ -23,8 +23,7 @@ describe User do
   it { should respond_to(:upvote!) }
   it { should respond_to(:downvote!) }
   it { should respond_to(:has_voted_on?) }
-  it { should respond_to(:find_votable) }
-  
+  it { should respond_to(:find_vote) }
   
   it { should be_valid }
   
