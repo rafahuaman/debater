@@ -3,7 +3,8 @@
     <div class="large-9 small-12 columns">
       <ul>
         <% @debates.each do |debate| %>
-          <%= render 'debates/debate_card', debate: debate %>
+          <% @debate = debate %>
+          <%= render 'debates/debate_card'%>
         <% end %>
       </ul>
     </div>

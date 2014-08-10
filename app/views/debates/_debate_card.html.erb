@@ -1,23 +1,23 @@
-<div class="row debate" id=<%= "debate-card-#{debate.id}"  %>>
-  <% @votable = debate %>
+<div class="row debate" id=<%= "debate-card-#{@debate.id}"  %>>
   <div class="small-12 columns">
     <ul class="debate-grid-spacing small-block-grid-2 large-block-grid-2">
-      <li class="score-grid" id=<%= "score-grid-debate-#{debate.id}" %>>
+      <li class="score-grid" id=<%= "score-grid-debate-#{@debate.id}" %>>
+        <% @votable = @debate %>
         <%= render 'votes/vote_form' %>
       </li>
       <li class="debate-description">
-        <h5 class="content-title"><%= link_to "#{debate.title}", debate_path(debate) %></h5>
+        <h5 class="content-title"><%= link_to "#{@debate.title}", debate_path(@debate) %></h5>
         <p class="author">Submitted by 
-          <span class="author-name"><strong><%= link_to "#{debate.user.name}", user_path(debate.user_id) %></strong></span>
-          <span class="chamber-name">to <strong><%= link_to "#{debate.chamber.name}", chamber_path(debate.chamber) %></strong></span>
+          <span class="author-name"><strong><%= link_to "#{@debate.user.name}", user_path(@debate.user_id) %></strong></span>
+          <span class="chamber-name">to <strong><%= link_to "#{@debate.chamber.name}", chamber_path(@debate.chamber) %></strong></span>
         </p>
         <div class="debate-stats">
           <ul class="inline-list">
             <li></li>
             <li><a href=#>replies(#)</a></li>
-            <% if current_user == debate.user %>
-              <li><%= link_to "edit", edit_debate_path(debate) %></li>
-              <li><%= link_to "delete", debate_path(debate), method: :delete, data: { confirm: "You sure?" } %></li>
+            <% if current_user == @debate.user %>
+              <li><%= link_to "edit", edit_debate_path(@debate) %></li>
+              <li><%= link_to "delete", debate_path(@debate), method: :delete, data: { confirm: "You sure?" } %></li>
             <% end %>
           </ul>
         </div>

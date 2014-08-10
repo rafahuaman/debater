@@ -13,9 +13,9 @@ class VotesController < ApplicationController
 
   def destroy
     @votable = Vote.find(params[:id]).votable
-    current_user.unvote!(votable)
+    current_user.unvote!(@votable)
     respond_to do |format|
-      format.html { redirect_to votable }
+      format.html { redirect_to @votable }
       format.js #{ render "destroy", :locals => {:id => params[:vote][:votable_id]} }
     end
   end
