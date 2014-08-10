@@ -58,12 +58,19 @@ $grayMediumLight: #eaeaea;
   margin-top: 10px;
 }
 
-.vote {
+.vote.unclicked {
   a {
     &:hover {
       color: #00CED1;
       background-color: white;
     }
+  }
+}
+
+.vote.clicked {
+  a {
+    color: #00CED1;
+    background-color: white;
   }
 }
 
