@@ -1,6 +1,7 @@
 <% if signed_in? %>
   <% if current_user.has_voted_on?(@votable) %>
-    <% if current_user.find_vote(@votable).value === 1 %>
+    <% if current_user.find_vote(@votable).value == 1 %>
+    <% puts current_user.find_vote(@votable).value %>
       <%= render 'votes/upvote', clicked: true %>
       <div class="debate-score"><%= @votable.score %></div>
       <%= render 'votes/downvote', clicked: false %>

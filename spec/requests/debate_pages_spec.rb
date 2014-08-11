@@ -56,6 +56,7 @@ describe "Debate pages" do
         end
       end
 
+
       describe "after signing in" do
         before do
           sign_in user
@@ -75,25 +76,25 @@ describe "Debate pages" do
           end
         end
 
-        describe "after voting"
+        describe "after voting" do
           before do
             user.vote!(debate,1)
             visit root_path
           end
+          it { should have_selector('div.debate-score', text: 1) }
 
-        it { should have_selector('div.debate-score', text: 1) }
+          it { should have_selector('.vote.upvote.clicked') }
+          it { should have_selector('.vote.downvote.unclicked') }
 
-        it { should have_selector('.vote.upvote.clicked') }
-        it { should have_selector('.vote.downvote.unclicked') }
-
-        describe "followed by downvote" do
-          before do 
-            user.downvote!(debate) 
-            visit root_path
+          describe "followed by downvote" do
+            before do 
+              user.downvote!(debate) 
+              visit root_path
+            end
+            it { should have_selector('.vote.upvote.unclicked') }
+            it { should have_selector('.vote.downvote.clicked') }
+            it { should have_selector('div.debate-score', text: -1) }
           end
-          it { should have_selector('.vote.upvote.unclicked') }
-          it { should have_selector('.vote.downvote.clicked') }
-          it { should have_selector('div.debate-score', text: -1) }
         end
       end
     end
