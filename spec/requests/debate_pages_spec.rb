@@ -66,12 +66,21 @@ describe "Debate pages" do
         describe "without votes" do
           it { should have_selector('.vote.upvote.unclicked') }
           it { should have_selector('.vote.downvote.unclicked') }
+          it "should have a 0 score" do
+            expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(0)
+          end
 
           describe "upvoting a debate" do
             it "should increment the debate score" do
-              expect do
-                find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
-              end.to change(debate, :score).by(1)
+              find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
+              expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(1)
+            end
+          end
+
+          describe "downvoting a debate" do
+            it "should increment the debate score" do
+              find("#debate-card-#{debate.id}").find(".vote.downvote.unclicked").find('a').click
+              expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(-1)
             end
           end
         end
