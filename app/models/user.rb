@@ -42,10 +42,6 @@ class User < ActiveRecord::Base
     find_vote(votable)
   end
 
-  def get_vote(votable)
-    self.votes.find_by(votable: debate, )
-  end
-
   def find_vote(votable)
       self.votes.find_by(votable_type: votable.vote_type, votable_id: votable.id)
   end

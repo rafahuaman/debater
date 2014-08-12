@@ -70,15 +70,23 @@ describe "Debate pages" do
             expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(0)
           end
 
-          describe "upvoting a debate" do
+          describe "Clicking the upvote link" do
             it "should increment the debate score" do
               find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
               expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(1)
             end
+
+            describe "Twice" do
+              it "should destroy the vote" do
+                find("#debate-card-#{debate.id}").find(".vote.upvote.unclicked").find('a').click
+                find("#debate-card-#{debate.id}").find(".vote.upvote.clicked").find('a').click
+                expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(0)
+              end
+            end
           end
 
-          describe "downvoting a debate" do
-            it "should increment the debate score" do
+          describe "Clicking the downvote link" do
+            it "should decrement the debate score" do
               find("#debate-card-#{debate.id}").find(".vote.downvote.unclicked").find('a').click
               expect(find("#debate-card-#{debate.id}").find(".debate-score")).to have_content(-1)
             end

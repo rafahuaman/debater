@@ -7,7 +7,7 @@ class VotesController < ApplicationController
     current_user.vote!(@votable, params[:vote][:value])
     respond_to do |format|
       format.html { redirect_to @votable }
-      format.js #{ render "create", :locals => {:id => params[:vote][:votable_id]} }
+      format.js
     end
   end
 
@@ -16,7 +16,7 @@ class VotesController < ApplicationController
     current_user.unvote!(@votable)
     respond_to do |format|
       format.html { redirect_to @votable }
-      format.js #{ render "destroy", :locals => {:id => params[:vote][:votable_id]} }
+      format.js
     end
   end
 end
