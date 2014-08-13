@@ -93,19 +93,6 @@ describe "Argument Post Pages" do
             expect(find('div#negative_posts')).to have_content(user.name)
           end
         end
-      
-      end
-
-      describe "submit to negative" do
-        before do 
-          click_link submit_negative
-          fill_in "Content", with: "Valid Debate"
-        end
-
-        it "should create an ArgumentPost" do
-          expect { click_button submit }.to change(ArgumentPost, :count).by(1)
-        end
-        
       end
     end
   end
@@ -331,6 +318,92 @@ describe "Argument Post Pages" do
         
         it "should list all counterarguments " do
           expect(find("li#counter-ref-link-#{last_post.id}")).to have_content("1")
+        end
+      end
+    end
+  end
+
+  describe "voting" do
+    let!(:argument_post) { FactoryGirl.create(:original_post, content: "Test content", debate: debate, user: user) }
+
+    describe "buttons" do
+      describe "as non signed-in user" do
+        describe "without votes" do
+          before do
+            visit debate_path(debate)
+          end
+          it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
+          it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
+        end
+
+        describe "with votes" do
+          before do
+            sign_in user
+            user.upvote!(argument_post)
+            click_link 'Sign out' 
+            visit debate_path(debate)
+          end
+          it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
+          it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
+        end
+      end
+
+
+      describe "after signing in" do
+        before do
+          sign_in user
+          visit debate_path(debate)
+        end
+
+        describe "without votes" do
+          it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
+          it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
+          it "should have a 0 score" do
+            expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(0)
+          end
+
+          describe "Clicking the upvote link" do
+            it "should increment the debate score" do
+              find("#argument-post-card-#{argument_post.id}").find(".vote.upvote.unclicked").find('a').click
+              expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(1)
+            end
+
+            describe "Twice" do
+              it "should destroy the vote" do
+                find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.unclicked").find('a').click
+                find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.clicked").find('a').click
+                expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(0)
+              end
+            end
+          end
+
+          describe "Clicking the downvote link" do
+            it "should decrement the debate score" do
+              find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.downvote.unclicked").find('a').click
+              expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(-1)
+            end
+          end
+        end
+
+        describe "after voting" do
+          before do
+            user.vote!(argument_post,1)
+            visit debate_path(debate)
+          end
+          it { should have_selector('div.argument-post-score', text: 1) }
+
+          it { should have_selector('.argument-post-vote-button.upvote.clicked') }
+          it { should have_selector('.argument-post-vote-button.downvote.unclicked') }
+
+          describe "followed by downvote" do
+            before do 
+              user.downvote!(argument_post) 
+              visit debate_path(debate)
+            end
+            it { should have_selector('.argument-post-vote-button.upvote.unclicked') }
+            it { should have_selector('.argument-post-vote-button.downvote.clicked') }
+            it { should have_selector('div.argument-post-score', text: -1) }
+          end
         end
       end
     end
