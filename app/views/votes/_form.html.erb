@@ -1,21 +1,29 @@
+<% if @votable.vote_type == "Debate" %>
+  <% icon_size = "fa-2x" %>
+  <% vote_class = "vote" %>
+<% else %>
+  <% icon_size = "small" %>
+  <% vote_class = "argument-post-vote-button" %>
+<% end %>
+
 <% if vote_value === 1 %>
   <% if clicked === true %>
-    <div class="vote upvote clicked">
-      <%= link_to '<i class="fa fa-arrow-up fa-2x"></i>'.html_safe, vote_path(id: current_user.find_vote(@votable)), method: :delete, remote: true %> 
+    <div class= "<%= "#{vote_class} upvote clicked"%>" >
+      <%= link_to ('<i class="fa fa-arrow-up ' + "#{icon_size}" + '"></i>').html_safe, vote_path(id: current_user.find_vote(@votable)), method: :delete, remote: true %> 
     </div>
   <% else %>
-    <div class="vote upvote unclicked">
-      <%= link_to '<i class="fa fa-arrow-up fa-2x"></i>'.html_safe, votes_path(vote: { user: current_user, votable_id: @votable.id, votable_type: @votable.vote_type, value: vote_value}), method: :post, remote: true %> 
+    <div class= "<%= "#{vote_class} upvote unclicked"%>" >
+      <%= link_to ('<i class="fa fa-arrow-up ' + "#{icon_size}" + '"></i>').html_safe, votes_path(vote: { user: current_user, votable_id: @votable.id, votable_type: @votable.vote_type, value: vote_value}), method: :post, remote: true %> 
     </div>
   <% end %>
 <% else %>
   <% if clicked === true %>
-    <div class="vote downvote clicked">
-    <%= link_to '<i class="fa fa-arrow-down fa-2x"></i>'.html_safe, vote_path(id: current_user.find_vote(@votable)), method: :delete, remote: true %> 
+    <div class= "<%= "#{vote_class} downvote clicked"%>" >
+    <%= link_to ('<i class="fa fa-arrow-down ' + "#{icon_size}" + '"></i>').html_safe, vote_path(id: current_user.find_vote(@votable)), method: :delete, remote: true %> 
     </div>
   <% else %>
-    <div class="vote downvote unclicked">
-      <%= link_to '<i class="fa fa-arrow-down fa-2x"></i>'.html_safe, votes_path(vote: { user: current_user, votable_id: @votable.id, votable_type: @votable.vote_type, value: vote_value}), method: :post, remote: true %> 
+    <div class= "<%= "#{vote_class} downvote unclicked"%>" >
+      <%= link_to ('<i class="fa fa-arrow-down ' + "#{icon_size}" + '"></i>').html_safe, votes_path(vote: { user: current_user, votable_id: @votable.id, votable_type: @votable.vote_type, value: vote_value}), method: :post, remote: true %> 
     </div>
   <% end %>
 <% end %>

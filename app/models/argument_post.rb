@@ -39,6 +39,9 @@ class ArgumentPost < ActiveRecord::Base
     "ArgumentPost"
   end
 
+  def score
+    self.votes.reduce(0) { |sum, vote| sum + vote.value }
+  end
 end
 
 class OriginalPost < ArgumentPost

@@ -364,7 +364,7 @@ describe "Argument Post Pages" do
 
           describe "Clicking the upvote link" do
             it "should increment the debate score" do
-              find("#argument-post-card-#{argument_post.id}").find(".vote.upvote.unclicked").find('a').click
+              find("#argument-post-card-#{argument_post.id}").find(".argument-post-vote-button.upvote.unclicked").find('a').click
               expect(find("#argument-post-card-#{argument_post.id}").find(".argument-post-score")).to have_content(1)
             end
 

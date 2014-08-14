@@ -1,1 +1,5 @@
-$($('#score-grid-debate-<%= @votable.id.to_s %>')).html("<%= escape_javascript(render('votes/vote_form')) %>")
+<% if @votable.vote_type == "Debate" %>
+  $($('#score-grid-debate-<%= @votable.id.to_s %>')).html("<%= escape_javascript(render('votes/vote_form')) %>")
+<% else %>
+  $($('#score-grid-argument-post-<%= @votable.id.to_s %>')).html("<%= escape_javascript(render('votes/argument_post_vote_grid')) %>")
+<% end %>

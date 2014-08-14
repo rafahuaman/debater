@@ -1,7 +1,13 @@
 	    <div class="panel argument-post" id=<%= argument_post.id %> >
-	   	  <div class="secondary label author" >
-	        <%= argument_post.user.name %>
+
+		    <div class="argument-post-voting-grid" id=<%= "argument-post-card-#{argument_post.id}" %>>
+	      	<% @votable = argument_post %>  
+	        <%= render 'votes/argument_post_vote_grid' %>
 	      </div>
+
+	   	  <span class="secondary label author" >
+	        <%= argument_post.user.name %>
+	      </span>
 	      <div class="comment_body"  >
 	      	<p><%= h(argument_post.content).gsub(/\n/, '<br/>').html_safe %></p>
 	      </div>
