@@ -72,6 +72,20 @@ $grayMediumLight: #eaeaea;
   }
 }
 
+.argument-post-vote-button.unclicked {
+  a {
+    &:hover {
+      color: #00CED1;
+    }
+  }
+}
+
+.argument-post-vote-button.clicked {
+  a {
+    color: #00CED1;
+  }
+}
+
 .body {
   padding: 30px; 
 }

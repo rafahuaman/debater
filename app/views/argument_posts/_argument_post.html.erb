@@ -1,18 +1,26 @@
 	    <div class="panel argument-post" id=<%= argument_post.id %> >
 
-		    <div class="argument-post-voting-grid" id=<%= "argument-post-card-#{argument_post.id}" %>>
-	      	<% @votable = argument_post %>  
-	        <%= render 'votes/argument_post_vote_grid' %>
+		    <div class="row argument-post-voting-grid" id=<%= "argument-post-card-#{argument_post.id}" %> >
+	      	<% @votable = argument_post %>
+	      	<div class="small-2 columns" id=<%= "score-grid-argument-post-#{argument_post.id}" %> >
+	      		<%= render 'votes/argument_post_voting_grid' %>
+	      	</div>
+	        <div class="secondary label author small-3 columns" >
+		        <%= argument_post.user.name %>
+	      	</div>
+	      	<div class= "small-7 columns"></div>
 	      </div>
 
-	   	  <span class="secondary label author" >
-	        <%= argument_post.user.name %>
-	      </span>
-	      <div class="comment_body"  >
-	      	<p><%= h(argument_post.content).gsub(/\n/, '<br/>').html_safe %></p>
-	      </div>
-	      <%= render 'argument_posts/argument_post_links', argument_post: argument_post %>
-	      <% argument_post.agreeing_children.each do |child_post| %>
-	      	<%= render 'argument_posts/argument_post', argument_post: child_post %>
-	      <% end %>
+   	  	<div class = "row">
+   	  		<div class= "small-1 columns"></div>
+ 	  			<div class= "small-11 columns">
+			      <div class="comment_body"  >
+			      	<p><%= h(argument_post.content).gsub(/\n/, '<br/>').html_safe %></p>
+			      </div>
+			      <%= render 'argument_posts/argument_post_links', argument_post: argument_post %>
+			      <% argument_post.agreeing_children.each do |child_post| %>
+			      	<%= render 'argument_posts/argument_post', argument_post: child_post %>
+			      <% end %>
+ 	  			</div> 	  		
+	   	 	</div>
 	    </div>

@@ -1,0 +1,31 @@
+<div class ="row">
+  <% if signed_in? %>
+    <% if current_user.has_voted_on?(@votable) %>
+      <% if current_user.find_vote(@votable).value == 1 %>
+        <div class= "small-1 columns">
+          <%= render 'votes/upvote', clicked: true %>
+          <%= render 'votes/downvote', clicked: false %>          
+        </div>
+        <div class="argument-post-score small-1 columns"><%= @votable.score %></div>  
+      <% else %>
+        <div class= "small-1 columns">
+          <%= render 'votes/upvote', clicked: false %>
+          <%= render 'votes/downvote', clicked: true %>
+        </div>
+        <div class="argument-post-score small-1 columns"><%= @votable.score %></div>
+      <% end %>
+    <% else %>
+      <div class= "small-1 columns">
+        <%= render 'votes/upvote', clicked: false %>
+        <%= render 'votes/downvote', clicked: false %>
+      </div>
+      <div class="argument-post-score small-1 columns"><%= @votable.score %></div>
+    <% end %>
+  <% else %>
+    <div class= "small-1 columns">
+      <div class="argument-post-vote-button upvote unclicked">  <%= link_to '<i class="fa fa-arrow-up small"></i>'.html_safe, signin_path %>
+      <div class="argument-post-vote-button downvote unclicked">  <%= link_to '<i class="fa fa-arrow-down small"></i>'.html_safe, signin_path %>
+    </div>
+    <div class="argument-post-score small-1 columns"><%= @votable.score %></div>
+  <% end %>
+</div>
