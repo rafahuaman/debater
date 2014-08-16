@@ -4,7 +4,11 @@ class DebatesController < ApplicationController
   before_action :set_debate, only: [:show, :edit, :update, :destroy, :delete]
   
   def index
-    @debates = Debate.paginate(page: params[:page])
+    #@debates = Debate.paginate(page: params[:page])
+    @debates = Debate.joins("LEFT JOIN votes ON votes.votable_id = debates.id and votes.votable_type = 'Debate'")
+                .group("debates.id")
+                .order("SUM(votes.value) ASC, debates.created_at DESC")
+                .paginate(page: params[:page])
   end
   
   def new

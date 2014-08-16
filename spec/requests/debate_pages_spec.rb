@@ -29,6 +29,24 @@ describe "Debate pages" do
         end
       end
     end 
+
+    describe "order" do
+      let!(:popular_debate) { FactoryGirl.create(:debate, title: "Debate testing ordering", user: user, chamber: chamber) }
+      let(:other_user) { FactoryGirl.create(:user)  }
+      before do
+        sign_in user
+        user.upvote!(popular_debate)
+        click_link 'Sign out'
+        sign_in other_user
+        other_user.upvote!(popular_debate)
+        visit root_path
+      end
+      it { should have_content(popular_debate.title) }
+      it "should be determined by score" do
+        expect(page.body.index(popular_debate.title)).to be < page.body.index(debate.title)
+      end
+
+    end
   end
 
   describe "votes" do
