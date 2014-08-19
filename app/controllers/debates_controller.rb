@@ -29,8 +29,13 @@ class DebatesController < ApplicationController
   end
   
   def show
-    @affirmative_posts = @debate.argument_posts.where(position: "affirmative", type: ["OriginalPost", "CounterArgumentPost"])
-    @negative_posts = @debate.argument_posts.where(position: "negative", type: ["OriginalPost", "CounterArgumentPost"])
+    @affirmative_posts = @debate.argument_posts
+                            .where(position: "affirmative", type: ["OriginalPost", "CounterArgumentPost"])
+                            .sort_by { |argument_post| -argument_post.score }
+
+    @negative_posts = @debate.argument_posts
+                          .where(position: "negative", type: ["OriginalPost", "CounterArgumentPost"])
+                          .sort_by { |argument_post| -argument_post.score }
   end
   
   def edit

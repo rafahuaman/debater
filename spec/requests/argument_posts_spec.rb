@@ -408,6 +408,34 @@ describe "Argument Post Pages" do
       end
     end
   end
+
+  describe "display order" do
+    let!(:unpopular_positive_argument) { FactoryGirl.create(:original_post, content: "unpopular positive post", debate: debate, user: user) }
+    let!(:popular_positive_argument) { FactoryGirl.create(:original_post, content: "popular positive post", debate: debate, user: user) }
+    let!(:unpopular_negative_argument) { FactoryGirl.create(:original_post, position: "negative", content: "unpopular negative post", debate: debate, user: user) }
+    let!(:popular_negative_argument) { FactoryGirl.create(:original_post, position: "negative", content: "popular negative post", debate: debate, user: user) }
+    
+
+    before do
+      sign_in user
+      user.upvote!(popular_positive_argument)
+      user.downvote!(unpopular_positive_argument)
+      user.upvote!(popular_negative_argument)
+      user.downvote!(unpopular_negative_argument)
+      visit debate_path(debate)
+    end
+
+    it { should have_content(popular_positive_argument.content) }
+    it { should have_content(unpopular_positive_argument.content) }
+    it { should have_content(unpopular_negative_argument.content) }
+    it { should have_content(popular_negative_argument.content) }
+
+    it "should be determined by score" do
+      expect(page.body.index(popular_positive_argument.content)).to be < page.body.index(unpopular_positive_argument.content)
+      expect(page.body.index(popular_negative_argument.content)).to be < page.body.index(unpopular_negative_argument.content)
+    end
+  end
 end
+
 
 
