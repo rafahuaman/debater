@@ -23,8 +23,8 @@
     <% end %>
   <% else %>
     <div class= "small-1 columns">
-      <div class="argument-post-vote-button upvote unclicked">  <%= link_to '<i class="fa fa-arrow-up small"></i>'.html_safe, signin_path %>
-      <div class="argument-post-vote-button downvote unclicked">  <%= link_to '<i class="fa fa-arrow-down small"></i>'.html_safe, signin_path %>
+      <div class="argument-post-vote-button upvote unclicked">  <%= link_to '<i class="fa fa-arrow-up small"></i>'.html_safe, signin_path %></div>
+      <div class="argument-post-vote-button downvote unclicked">  <%= link_to '<i class="fa fa-arrow-down small"></i>'.html_safe, signin_path %></div>
     </div>
     <div class="argument-post-score small-1 columns"><%= @votable.score %></div>
   <% end %>
